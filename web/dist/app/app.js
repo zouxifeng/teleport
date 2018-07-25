@@ -1823,7 +1823,7 @@ webpackJsonp([0],[
 	          disabled: isProcessing,
 	          type: 'submit',
 	          className: 'btn btn-primary block full-width m-b' },
-	        'Login'
+	        'Login My Account'
 	      ),
 	      $helpBlock
 	    );
@@ -1839,7 +1839,7 @@ webpackJsonp([0],[
 	    }
 
 	    return _react2.default.createElement(_ssoBtnList.SsoBtnList, {
-	      prefixText: 'Login with ',
+	      prefixText: '',
 	      isDisabled: attemp.isProcessing,
 	      providers: authProviders,
 	      onClick: this.onLoginWithSso });
@@ -1875,6 +1875,15 @@ webpackJsonp([0],[
 	          this.renderNameAndPassFields(),
 	          this.render2faFields(),
 	          this.renderLoginBtn(),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'grv-login-or' },
+	            _react2.default.createElement(
+	              'em',
+	              null,
+	              '~ or ~'
+	            )
+	          ),
 	          this.renderSsoBtns()
 	        )
 	      ),
