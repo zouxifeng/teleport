@@ -33,8 +33,8 @@ export const FileTransfer = ({ files }) => {
   });
 
   return (
-    <div className="m-t-sm">
-      <div className="grv-file-transfer-header m-b-sm">
+    <div>
+      <div className="grv-file-transfer-header">
       </div>
       <div className="grv-file-transfer-file-list-cols">
         <Text> File </Text>

@@ -77,15 +77,12 @@ export class FileTransferDialog extends Component {
     const latestFirst = files.toArray().reverse();
     return (
       <div className="grv-file-transfer p-sm" onKeyDown={this.onKeyDown}>
+        <button onClick={this.onClose} className="grv-file-transfer-close">
+          <i className="fa fa-times" aria-hidden="true"></i>
+        </button>
         {!isUpload && <FileDownloadSelector onDownload={this.onDownload} />}
         {isUpload && <FileUploadSelector onUpload={this.onUpload} /> }
         <FileTransfer files={latestFirst}/>
-        <div className="grv-file-transfer-footer">
-          <button onClick={this.onClose}
-            className="btn btn-sm  grv-file-transfer-btn">
-            Close
-          </button>
-        </div>
       </div>
     )
   }

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 .grv-login {
-  background-color: #2f4050;
+  background-color: $color-brand-dark;
   padding-top: 5%;
   height: 100%;
   width: 100%;
@@ -22,16 +22,30 @@ limitations under the License.
   overflow: auto;
 
   .grv-icon-logo-tlpt{
-    height: 75px;
+    height: 60px;
+    margin: 0 0 ($unit * 4) 0;
+  }
+
+  .grv-login-or {
+    text-align: center;
+
+    em {
+      color: $color-secondary;
+      font-weight: 300;
+      display: block;
+      line-height: $unit * 6;
+      font-style: normal;
+    }
   }
 
   .grv-content {
     padding: 10px;
     max-width: 350px;
     z-index: 100;
-    margin: 10px auto 30px;
-    border-radius: 6px;
+    margin: 0 auto ($unit * 6) auto;
+    border-radius: 4px;
     background-color: #ffffff;
+    box-shadow: 0 0 ($unit * 4) rgba(0, 0, 0, .12), 0 ($unit * 4) ($unit * 4) rgba(0, 0, 0, .24);
 
     .grv-flex-column {
       padding: 15px;
@@ -39,8 +53,19 @@ limitations under the License.
 
     .grv-login-input-form {
       margin-bottom: 15px;
+
       h3 {
-        margin-bottom: 20px;
+        color: $color-brand-dark;
+        font-size: 14px;
+        margin-bottom: $unit * 3;
+        text-transform: uppercase;
+      }
+
+      .btn.btn-primary {
+        background-color: $color-success;
+        border-color: $color-success;
+        text-transform: uppercase;
+        margin: 0;
       }
     }
 
@@ -58,16 +83,18 @@ limitations under the License.
   }
 }
 
-.grv-user-btn-sso{ 
+.grv-user-btn-sso{
+  text-transform: uppercase;
+
   &:not(:first-child){
     margin-top: 15px;
   }
-  
-  max-width: 400px;  
+
+  max-width: 400px;
   text-align: center;
-  margin: 0 auto;  
+  margin: 0 auto;
   position: relative;
-      
+
   &.btn-github {
     .--sso-icon {
       .fa{
@@ -81,7 +108,7 @@ limitations under the License.
         @extend .fa-google;
       }
     }
-  }  
+  }
 
   &.btn-openid{
     .--sso-icon {
@@ -89,7 +116,7 @@ limitations under the License.
         @extend .fa-openid;
       }
     }
-  }  
+  }
 
   &.btn-microsoft{
     .--sso-icon {
@@ -97,7 +124,7 @@ limitations under the License.
         @extend .fa-windows;
       }
     }
-  }  
+  }
 
   &.btn-bitbucket{
     .--sso-icon {
@@ -105,24 +132,24 @@ limitations under the License.
         @extend .fa-bitbucket;
       }
     }
-  } 
+  }
 
   &.--unknown{
     @extend .btn-openid;
-    .--sso-icon {      
-      display: none;      
+    .--sso-icon {
+      display: none;
     }
-  } 
-    
+  }
+
   .--sso-icon{
-    position: absolute;        
+    position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
-    width: 32px;  
+    width: 32px;
     font-size: 1.6em;
     text-align: center;
-    border-right: 1px solid rgba(0, 0, 0, 0.2);    
-  }  
-  
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
 }
