@@ -59,7 +59,7 @@ limitations under the License.
   .grv-invite-content{
     box-shadow: 0 0 ($unit * 4) rgba(0, 0, 0, .12), 0 ($unit * 4) ($unit * 4) rgba(0, 0, 0, .24);
     color: $color-brand-dark;
-    padding: 10px;
+    padding: $unit * 2;
     max-width: 350px;
     z-index: 100;
     margin: 0 auto;

@@ -50,7 +50,14 @@ export class Invite extends React.Component {
     const auth2faType = cfg.getAuth2faType();
 
     if(fetchingInvite.isFailed){
-      return <ExpiredLink/>
+      return (
+        <div className="grv-invite text-center">
+          <TeleportLogo />
+          <div className="grv-invite-content">
+            <ExpiredLink/>
+          </div>
+        </div>
+      );
     }
 
     if(!invite) {
