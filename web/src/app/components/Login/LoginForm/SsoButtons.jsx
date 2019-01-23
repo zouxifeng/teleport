@@ -17,6 +17,7 @@ limitations under the License.
 import React from 'react';
 import { AuthProviderTypeEnum } from 'app/services/enums';
 import SsoButton from './../SsoButton';
+import { Box } from 'shared/components';
 
 function guessProviderType(name, type) {
   name = name.toLowerCase();
@@ -53,6 +54,7 @@ const SsoBtnList = ({providers, prefixText, isDisabled, onClick}) => {
     return (
       <SsoButton key={index}
         type={ssoType}
+        mt={4}
         disabled={isDisabled}
         onClick={e => { e.preventDefault(); onClick(item) }}>
         {title}
@@ -66,8 +68,11 @@ const SsoBtnList = ({providers, prefixText, isDisabled, onClick}) => {
     )
   }
 
-  return $btns;
-
+  return  (
+    <Box px={5} pt={2} pb={5}>
+      {$btns}
+    </Box>
+  )
 }
 
 export default SsoBtnList;

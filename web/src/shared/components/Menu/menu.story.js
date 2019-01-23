@@ -2,12 +2,14 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import Menu from './Menu';
 import MenuItem from './MenuItem';
+import MenuItemIcon from './MenuItemIcon';
 import Button from '../Button';
 import Box from '../Box';
 import Flex from '../Flex';
+import  * as Icons from '../Icon';
 
 storiesOf('Menu', module)
-  .add('Simple menu', () => (
+  .add('Menu', () => (
     <Flex justifyContent="space-between">
       <SimpleMenu text="Menu to right">
         <MenuItem>
@@ -17,7 +19,6 @@ storiesOf('Menu', module)
           Test2
         </MenuItem>
       </SimpleMenu>
-
       <SimpleMenu text="Menu in center"
         anchorOrigin={{
           vertical: 'bottom',
@@ -26,13 +27,12 @@ storiesOf('Menu', module)
         transformOrigin={{
           vertical: 'top',
           horizontal: 'center',
-        }}
-      >
+        }}>
         <MenuItem>
           Test
         </MenuItem>
         <MenuItem>
-            Test2
+          Test2
         </MenuItem>
         <MenuItem>
           <Button mt={1} mb={1} block> Logout</Button>
@@ -52,12 +52,36 @@ storiesOf('Menu', module)
           Test
         </MenuItem>
         <MenuItem>
-            Test2
+          Test2
         </MenuItem>
       </SimpleMenu>
     </Flex>
-  )
-);
+  ))
+.add('MenuItemIcon', () => (
+    <Menu
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
+      open={true}>
+      <MenuItem>
+        <MenuItemIcon as={Icons.Apple }/>
+        Test
+      </MenuItem>
+      <MenuItem>
+        <MenuItemIcon as={Icons.Cash }/>
+        Test
+      </MenuItem>
+      <MenuItem>
+        <MenuItemIcon as={Icons.CircleArrowLeft }/>
+        Test
+      </MenuItem>
+    </Menu>
+));
 
 class SimpleMenu extends React.Component {
 

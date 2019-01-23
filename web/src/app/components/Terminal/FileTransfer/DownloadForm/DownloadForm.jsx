@@ -15,8 +15,8 @@ limitations under the License.
 */
 
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import * as Elements from './../Elements';
 
 export default class FileDownloadSelector extends React.Component {
 
@@ -62,70 +62,25 @@ export default class FileDownloadSelector extends React.Component {
     const { path } = this.state;
     const isBtnDisabled = !this.isValidPath(path);
     return (
-      <Downloader>
-        <header>(SCP) Download Files</header>
-
-        <StyledLabel>Full path of file</StyledLabel>
-        <StyledInput onChange={this.onChangePath}
+      <Elements.Form>
+        <Elements.Header>
+          (SCP) Download Files
+        </Elements.Header>
+        <Elements.Label>File Path</Elements.Label>
+        <Elements.Input onChange={this.onChangePath}
           ref={e => this.inputRef = e}
           value={path}
+          mb={0}
           autoFocus
           onFocus={this.moveCaretAtEnd}
           onKeyDown={this.onKeyDown}
         />
-        <DownloadButton
+        <Elements.Button
           disabled={isBtnDisabled}
           onClick={this.onDownload}>
           Download
-        </DownloadButton>
-      </Downloader>
+        </Elements.Button>
+      </Elements.Form>
     )
   }
 }
-
-
-
-const Downloader = styled.div`
-  font-size: ${props => props.theme.fontSizes[0]}px;
-  color: ${props => props.theme.colors.terminal};
-
-  header {
-    font-size: ${props => props.theme.fontSizes[0]}px;
-    font-weight: 800;
-    line-height: 16px;
-    margin: 0 0 16px 0;
-    text-transform: uppercase;
-  }
-`;
-
-const DownloadButton = styled.button`
-  background: none;
-  border: 1px solid ${props => props.theme.colors.terminal};
-  box-sizing: border-box;
-  color: ${props => props.theme.colors.terminal};
-  height: 24px;
-  margin: 0;
-  padding: 0;
-  text-transform: uppercase;
-  width: 88px;
-`;
-
-const StyledLabel = styled.label`
-  color: ${props => props.theme.colors.terminal};
-  display: block;
-  margin: 0 0 8px 0;
-  line-height: 24px;
-  text-transform: uppercase;
-`
-
-const StyledInput = styled.input`
-  background: ${props => props.theme.colors.bgTerminal};
-  border: none;
-  box-sizing: border-box;
-  color: ${props => props.theme.colors.terminal};
-  height: 24px;
-  margin: 0 16px 32px 0;
-  outline: none;
-  padding: 0 8px;
-  width: 360px;
-`

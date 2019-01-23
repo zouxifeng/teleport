@@ -22,12 +22,15 @@ const U2F_HELP_URL = 'https://support.google.com/accounts/answer/6103523?hl=en';
 
 export default function Invite2faData(props) {
   const { auth2faType, qr } = props;
+  const imgSrc = `data:image/png;base64,${qr}`;
 
   if (auth2faType === Auth2faTypeEnum.OTP) {
     return (
       <div>
-        <Typography.h5>Scan the bar code with Google Authenticator to generate a two factor token.</Typography.h5>
-        <img width="168" className="img-thumbnail" src={ `data:image/png;base64,${qr}` } />
+        <Typography.h5>
+          Scan the bar code with Google Authenticator to generate a two factor token.
+        </Typography.h5>
+        <img width="168" src={imgSrc} />
       </div>
     )
   }
@@ -35,10 +38,12 @@ export default function Invite2faData(props) {
   if (auth2faType === Auth2faTypeEnum.UTF) {
     return (
       <div>
-        <Typography.h4>Insert your U2F key</Typography.h4>
-        <Typography.h5>Press the button on the U2F key after you press the sign up button</Typography.h5>
-
-
+        <Typography.h4>
+          Insert your U2F key
+        </Typography.h4>
+        <Typography.h5>
+          Press the button on the U2F key after you press the sign up button
+        </Typography.h5>
         <Typography.h5>
           <a a target="_blank" href={U2F_HELP_URL}>Learn more</a> about U2F 2-Step Verification.
         </Typography.h5>

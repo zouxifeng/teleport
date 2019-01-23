@@ -19,16 +19,16 @@ import { Record, List } from 'immutable';
 
 import { RECEIVE_ACTIVE_SESSIONS } from './actionTypes';
 
-const ActiveSessionRec = Record({ 
+const ActiveSessionRec = Record({
   id: undefined,
-  namespace: undefined,  
+  namespace: undefined,
   login: undefined,
   active: undefined,
   created: undefined,
   last_active: undefined,
   server_id: undefined,
   siteId: undefined,
-  parties: List()  
+  parties: List()
 })
 
 const PartyRecord = Record({
@@ -37,31 +37,31 @@ const PartyRecord = Record({
   serverId: undefined
 })
 
-const defaultState = () => toImmutable({}); 
+const defaultState = () => toImmutable({});
 
 export default Store({
   getInitialState() {
     return defaultState();
   },
 
-  initialize() {    
+  initialize() {
     this.on(RECEIVE_ACTIVE_SESSIONS, receive);
   }
 })
 
 
-function receive(state, { siteId, json }) {
-  const jsonArray = json || [];
+function receive(state, { siteId, sessions }) {
+  sessions = sessions || [];
   const newState = defaultState().withMutations(newState =>
-    jsonArray
+    sessions
       .filter(item => item.active === true)
       .forEach(item => {
         const rec = createSessionRec(siteId, item);
         newState.set(rec.id, rec);
       })
   );
-    
-  return newState.equals(state) ? state : newState;  
+
+  return newState.equals(state) ? state : newState;
 }
 
 function createSessionRec(siteId, json) {
@@ -77,9 +77,9 @@ function createSessionRec(siteId, json) {
 
 function createParties(jsonArray) {
   jsonArray = jsonArray || [];
-  const list = new List(); 
+  const list = new List();
   return list.withMutations(list => {
-    jsonArray.forEach(item => {      
+    jsonArray.forEach(item => {
       const party = new PartyRecord({
         user: item.user,
         serverIp: item.remote_addr,
@@ -88,5 +88,5 @@ function createParties(jsonArray) {
 
       list.push(party)
     })
-  })       
+  })
 }

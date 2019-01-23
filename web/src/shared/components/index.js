@@ -1,5 +1,6 @@
 import Input from './Input';
 import Button from './Button';
+import Alert from './Alerts';
 import Card from './Card';
 import Text from './Text';
 import Label from './Label';
@@ -11,6 +12,7 @@ import TopNav, { TopNavItem } from './TopNav';
 import Flex from './Flex';
 
 export {
+  Alert,
   Box,
   Button,
   Card,

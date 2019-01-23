@@ -24,7 +24,6 @@ const StyledMenuList = styled.div`
   max-height: calc(100% - 96px);
   overflow: hidden;
   position: relative;
-  width: 200px;
   padding:0;
 
   ${ props => props.menuListCss && props.menuListCss(props) }

@@ -44,10 +44,8 @@ function pickSso(type) {
       return { color: '#205081', Icon: Icons.BitBucket };
     case 'google':
       return { color: '#dd4b39', Icon: Icons.Google };
-    case 'openid':
-      return { color: '#f7931e', Icon: Icons.OpenID };
     default:
-    return { color: '#f7931e' };
+      return { color: '#f7931e', Icon: Icons.OpenID };
   }
 }
 
@@ -61,11 +59,7 @@ const StyledButton = styled(Button)`
   line-height: 48px;
   position: relative;
   box-sizing: border-box;
-  margin: 0 0 32px 0;
 
-  &:last-child {
-    margin: 0;
-  }
 `
 
 const IconBox = styled.div`

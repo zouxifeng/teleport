@@ -184,6 +184,7 @@ class Modal extends React.Component {
       container,
       disablePortal,
       modalCss,
+      hideBackdrop,
       open
     } = this.props;
 
@@ -201,7 +202,7 @@ class Modal extends React.Component {
         onRendered={this.handleRendered}
       >
         <StyledModal modalCss={modalCss} data-mui-test="Modal" ref={this.handleModalRef}>
-          <Backdrop onClick={this.handleBackdropClick} {...BackdropProps} />
+          { !hideBackdrop && <Backdrop onClick={this.handleBackdropClick} {...BackdropProps} /> }
           <RootRef rootRef={this.onRootRef}>
             {React.cloneElement(children, childProps)}
           </RootRef>

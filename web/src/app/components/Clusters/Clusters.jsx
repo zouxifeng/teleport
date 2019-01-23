@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import React from 'react';
+import styled from 'styled-components';
 import { connect } from './../nuclear';
 import AppBar from './../AppBar/AppBar';
 import AppLogo from './../AppLogo';
@@ -53,14 +54,14 @@ export class Clusters extends React.Component {
         <AppBar >
           <AppLogo/>
         </AppBar>
-        <div style={{ overflow: "auto", height: '100%' }}>
+        <Content >
           <Box mx={4} mb={3} mt="1">
             <Header title="Clusters" />
           </Box>
           <Flex flexWrap="wrap" mx={2} >
             {$clusters}
           </Flex>
-        </div>
+        </Content>
       </Flex>
     );
   }
@@ -77,5 +78,11 @@ function mapActionsToProps() {
     onSelectCluster: showCluster
   }
 }
+
+const Content = styled(Box)`
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+`
 
 export default connect(mapStoreToProps, mapActionsToProps)(Clusters);

@@ -6,6 +6,9 @@ import theme from './../theme'
 export const caps = props =>
   props.caps ? { textTransform: 'uppercase' } : null
 
+export const breakAll = props =>
+  props.breakAll ? { wordBreak: 'break-all' } : null
+
 export const regular = props =>
   props.regular ? { fontWeight: props.theme.regular } : null
 
@@ -15,7 +18,15 @@ export const bold = props =>
 export const italic = props => (props.italic ? { fontStyle: 'italic' } : null)
 
 const Text = styled.div`
-  ${italic} ${fontSize} ${space} ${color} ${caps} ${regular} ${bold} ${textAlign};
+  ${breakAll}
+  ${italic}
+  ${fontSize}
+  ${space}
+  ${color}
+  ${caps}
+  ${regular}
+  ${bold}
+  ${textAlign}
 `
 
 Text.displayName = 'Text'

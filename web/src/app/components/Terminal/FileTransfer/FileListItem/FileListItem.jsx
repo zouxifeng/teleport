@@ -17,12 +17,12 @@ limitations under the License.
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Text } from 'shared/components';
 import * as Icon from 'shared/components/Icon';
 import { Uploader, Downloader } from 'app/services/fileTransfer';
 import withHttpRequest from './withHttpRequest';
+import { CloseButton as TermCloseButton } from './../../Elements';
 
-export default class File extends Component {
+export default class FileListItem extends Component {
 
   static propTypes = {
     file: PropTypes.object.isRequired,
@@ -67,71 +67,72 @@ export default class File extends Component {
   render() {
     const { httpProgress, file } = this.props;
     const {name, isFailed, isProcessing, isCompleted, error} = file;
-    let cancelButton = null;
-    let errMessage = null;
-    let status = null;
-    let color = "terminal";
 
-    if(isProcessing) {
-      cancelButton = <CloseButton onClick={this.onRemove}><Icon.Close/></CloseButton>;
-      status = `${httpProgress}%`;
-    }
-
+    let statusText = `${httpProgress}%`;
     if(isFailed) {
-      errMessage = <Text color="error">{error} </Text> ;
-      status = "failed";
-      color = "error";
+      statusText = 'failed';
     }
 
     if(isCompleted) {
-      status = "complete";
+      statusText = 'complete';
     }
 
     return (
-      <tr>
-        <td colSpan="100%">
-          <ProgressRow>
-            <ProgressIndicator status={status} progress={httpProgress}>
-              {name}
-            </ProgressIndicator>
-            {cancelButton}
-            <ProgressStatus color={color}>{status}</ProgressStatus>
-          </ProgressRow>
-
-          <ErrorRow>{errMessage}</ErrorRow>
-        </td>
-      </tr>
+      <StyledFileListItem>
+        <Progress>
+          <ProgressIndicator isCompleted={isCompleted} progress={httpProgress}>
+            {name}
+          </ProgressIndicator>
+          <CancelButton show={isProcessing} onClick={this.onRemove}/>
+          <ProgressStatus isFailed={isFailed}>
+            {statusText}
+          </ProgressStatus>
+        </Progress>
+         <Error show={isFailed} text={error}/>
+      </StyledFileListItem>
     )
   }
 }
 
-const FileToSend = withHttpRequest(Uploader)(File);
-const FileToReceive = withHttpRequest(Downloader)(File);
+const FileListItemSend = withHttpRequest(Uploader)(FileListItem);
+const FileListItemReceive = withHttpRequest(Downloader)(FileListItem);
 
 export {
-  FileToReceive,
-  FileToSend
+  FileListItemReceive,
+  FileListItemSend
 }
 
-const ErrorRow = styled.div`
-  display: block;
+const Error = ({show, text}) => {
+  return show ? <StyledError>{text}</StyledError> : null;
+}
+
+const CancelButton = ({ show, onClick }) => {
+  return show ? <StyledButton onClick={onClick}><Icon.Close/></StyledButton> : null;
+}
+
+const StyledFileListItem = styled.div`
+  margin-top: 4px;
+`
+
+const StyledError = styled.div`
   height: 16px;
   line-height: 16px;
-  margin: 4px 0 16px 0;
+  color: ${({theme}) => theme.colors.error};
 `;
 
-const ProgressRow = styled.div`
+const Progress = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
 `;
 
-const ProgressStatus = styled(Text)`
+const ProgressStatus = styled.div`
   fontSize: 12px;
   height: 24px;
   line-height: 24px;
   width: 80px;
   text-align: right;
+  color: ${props => props.isFailed ? props.theme.colors.error : props.theme.colors.terminal };
 `;
 
 const ProgressIndicator = styled.div`
@@ -142,29 +143,19 @@ const ProgressIndicator = styled.div`
     ${props => props.theme.colors.bgTerminal} 0%, ${props => props.theme.colors.bgTerminal} 100%
   );
 
-  background: ${props => props.status === "complete" ? 'none' : ''};
-  color: ${props => props.status === "complete" ? props.theme.colors.inverse : props.theme.colors.terminal};
+  background: ${props => props.isCompleted ? 'none' : ''};
+  color: ${props => props.isCompleted ? props.theme.colors.inverse : props.theme.colors.terminal};
   height: 24px;
   line-height: 24px;
-  width: 80%;
+  width: 360px;
+
 `;
 
-const CloseButton = styled.button`
+const StyledButton = styled(TermCloseButton)`
   background: ${props => props.theme.colors.error};
-  border: none;
-  border-radius: 2px;
-  font-size: 12px;
   color: ${props => props.theme.colors.light};
-  cursor: pointer;
+  font-size: 12px;
   height: 12px;
-  line-height: 12px;
   margin: 6px 8px;
-  outline: none;
-  padding: 0;
-  transition: all .3s;
   width: 12px;
-
-  &:hover {
-    background: ${props => props.theme.colors.error};
-  }
 `

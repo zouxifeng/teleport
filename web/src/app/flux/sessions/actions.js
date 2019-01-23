@@ -60,15 +60,17 @@ export function fetchSiteEvents(siteId, start, end){
     });
 }
 
-export function fetchActiveSessions() {
-  const siteId = reactor.evaluate(appGetters.siteId);
-  return api.get(cfg.api.getFetchSessionsUrl(siteId))
-    .then(json => {
-      let sessions = json.sessions || [];
-      reactor.dispatch(RECEIVE_ACTIVE_SESSIONS, { siteId, json: sessions });
+export function fetchActiveSessions(clusterId){
+  return api.get(cfg.api.getFetchSessionsUrl(clusterId))
+    .then(res => {
+      const json = {
+        sessions: res.sessions || [],
+        siteId: clusterId,
+      }
+      reactor.dispatch(RECEIVE_ACTIVE_SESSIONS, json);
     })
     .catch(err => {
       logger.error('fetchActiveSessions', err);
       throw err;
-    });
-}
+    })
+  }

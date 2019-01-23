@@ -18,7 +18,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { debounce } from 'lodash';
 import styled from 'styled-components';
-import {Magnifier} from 'shared/components/Icon/Icon';
+import {Magnifier, Icon} from 'shared/components/Icon/Icon';
 
 class InputSearch extends React.Component {
 
@@ -62,13 +62,12 @@ class InputSearch extends React.Component {
   }
 
   render() {
-    let {autoFocus = false } = this.props;
-    const isFocused = this.state.isFocused ? 'is-active' : '';
-
+    const { autoFocus = false } = this.props;
+    const { isFocused } = this.state;
     return (
-      <SearchField className={isFocused}>
-        <Magnifier  />
-        <input placeholder="Search..." className="form-control"
+      <SearchField isFocused={isFocused}>
+        <Magnifier fontSize={4} />
+        <Input placeholder="SEARCH..."
           autoFocus={autoFocus}
           value={this.state.value}
           onChange={this.onChange} onFocus={this.onFocus} onBlur={this.onBlur} />
@@ -78,66 +77,43 @@ class InputSearch extends React.Component {
 }
 
 
-const SearchField = styled.div`
-  float: left;
-  height: 40px;
-  margin: 0;
-  position: relative;
-
-  &.is-active {
-    .icon {
-      color: ${props => props.theme.colors.bgSecondary};
+function fromTheme(props){
+  return {
+    background: props.theme.colors.bgSecondary,
+    border: 'none',
+    borderRadius: 200,
+    color: props.theme.colors.light,
+    fontSize: props.theme.fontSizes[2],
+    height: props.theme.space[5],
+    outline: 'none',
+    paddingLeft: props.theme.space[5],
+    paddingRight: props.theme.space[2],
+    '&:focus, &:active': {
+      background: props.theme.colors.bgLight,
+      boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, .24)',
+      color: props.theme.colors.link,
+    },
+    '&::placeholder': {
+      color: props.theme.colors.subtle,
+      fontSize: props.theme.fontSizes[1],
     }
   }
+}
 
-  .icon {
-    font-size: 20px;
-    left: 12px;
+const Input = styled.input`
+  ${fromTheme}
+`
+
+const SearchField = styled.div`
+  position: relative;
+  ${Icon} {
+    left: ${props => props.theme.space[2]}px;
     opacity: .24;
     position: absolute;
-    top: 12px;
-    z-index: 1;
-  }
-
-  input {
-    background: ${props => props.theme.colors.bgSecondary};
-    border: none;
-    border-radius: 200px;
-    color: ${props => props.theme.colors.light};
-    font-size: 14px;
-    font-weight: 300;
-    height: 40px;
-    outline: none;
-    padding: 0 16px 0 40px;
-    transition: all .3s;
-
-    &:focus, &:active {
-      background: ${props => props.theme.colors.bgLight};
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, .24);
-      color: ${props => props.theme.colors.link};
-    }
-
-          // PLACEHOLDER TEXT
-    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-      color: ${props => props.theme.colors.subtle};
-      font-size: 12px;
-      text-transform: uppercase;
-    }
-    &::-moz-placeholder { /* Firefox 19+ */
-      color: ${props => props.theme.colors.subtle};
-      font-size: 12px;
-      text-transform: uppercase;
-    }
-    &:-ms-input-placeholder { /* IE 10+ */
-      color: ${props => props.theme.colors.subtle};
-      font-size: 12px;
-      text-transform: uppercase;
-    }
-    &:-moz-placeholder { /* Firefox 18- */
-      color: ${props => props.theme.colors.subtle};
-      font-size: 12px;
-      text-transform: uppercase;
-    }
+    top: 25%;
+    ${props => props.isFocused && {
+      color: props.theme.colors.bgSecondary
+    }}
   }
 `;
 

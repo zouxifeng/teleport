@@ -10,7 +10,7 @@ const LogoButton = ({
   return (
     <StyledLogo {...rest}>
       <img src={src} />
-      <em>v{version}</em>
+      <em>{version}</em>
     </StyledLogo>
   );
 };

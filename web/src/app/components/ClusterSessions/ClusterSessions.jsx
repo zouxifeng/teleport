@@ -16,6 +16,7 @@ limitations under the License.
 
 import moment from 'moment';
 import React from 'react';
+import cfg from 'app/config';
 import { connect } from './../nuclear';
 import { fetchSiteEventsWithinTimeRange } from 'app/flux/storedSessionsFilter/actions';
 import sessionGetters from 'app/flux/sessions/getters';
@@ -55,15 +56,16 @@ export class ClusterSessions extends React.Component {
 
   render() {
     const { searchValue, dateFilter } = this.state;
-    const { clusterId, storedSessions, activeSessions } = this.props;
+    const { clusterId, canJoin, storedSessions, activeSessions, storage } = this.props;
     const title = `${clusterId} · Sessions`;
 
     return (
       <DocumentTitle title={title}>
         <Header title="Audit Log" searchValue={searchValue} onSearchChange={this.onSearchValueChange} />
         <SessionList
+          canJoin={canJoin}
           searchValue={searchValue}
-          storage={this.props.storage}
+          storage={storage}
           activeSessions={activeSessions}
           storedSessions={storedSessions}
           filter={dateFilter}
@@ -74,19 +76,21 @@ export class ClusterSessions extends React.Component {
   }
 }
 
-function mapStoreToProps() {
+function mapStoreToProps(props) {
+  const { clusterId } = props;
   return {
-    activeSessions: sessionGetters.activeSessionList,
-    storedSessions: sessionGetters.storedSessionList,
+    activeSessions: sessionGetters.activeSessionList(clusterId),
+    storedSessions: sessionGetters.storedSessionList(clusterId),
   }
 }
 
-function mapActionsToProps() {
+function mapStateToProps() {
   return {
     fetch: fetchSiteEventsWithinTimeRange,
+    canJoin: cfg.canJoinSessions,
   }
 }
 
 const SessionsWithStorage = withStorage(ClusterSessions);
 
-export default connect(mapStoreToProps, mapActionsToProps)(SessionsWithStorage);
+export default connect(mapStoreToProps, mapStateToProps)(SessionsWithStorage);

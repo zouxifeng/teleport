@@ -48,7 +48,8 @@ class App extends Component {
 
   componentDidMount() {
     const featureActivator = new FeatureActivator();
-    initApp("", featureActivator);
+    const { match } = this.props;
+    initApp(match.params.siteId, featureActivator);
   }
 
   render() {

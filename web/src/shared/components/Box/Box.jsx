@@ -1,11 +1,12 @@
 import styled from 'styled-components'
-import { flex, alignSelf, justifySelf, space, width, color, textAlign,  } from 'styled-system'
+import { flex, height, alignSelf, justifySelf, space, width, color, textAlign,  } from 'styled-system'
 import PropTypes from 'prop-types'
 import theme from './../theme'
 
 
 const Box = styled.div`
-  ${space} ${width} ${color} ${textAlign} ${flex} ${alignSelf} ${justifySelf}
+  box-sizing: border-box;
+  ${space} ${height} ${width} ${color} ${textAlign} ${flex} ${alignSelf} ${justifySelf}
 `
 
 Box.displayName = 'Box'

@@ -18,10 +18,8 @@ import { sortBy } from 'lodash';
 import React from 'react';
 import { isMatch } from 'app/lib/objectUtils';
 import { TablePaged, Column, Cell, SortHeaderCell, SortTypes } from 'shared/components/DataTable';
-
 import moment from 'moment';
-import { SessionIdCell, NodeCell, UsersCell, TypeCell, DateCreatedCell, DescriptionCell, DurationCell } from './SessionListCells';
-import cfg from 'app/config';
+import { SessionIdCell, UsersCell, TypeCell, DateCreatedCell, DescriptionCell } from './SessionListCells';
 
 class SessionList extends React.Component {
 
@@ -74,21 +72,9 @@ class SessionList extends React.Component {
     return sorted;
   }
 
-  getDescription(eventType) {
-    let description;
-
-    switch(eventType) {
-      case 'session': description = ""; break;
-      default: description = "adsf" ;
-    }
-
-    return description;
-  }
-
   render() {
-    const { filter, searchValue, storedSessions, activeSessions } = this.props;
+    const { filter, canJoin, searchValue, storedSessions, activeSessions } = this.props;
     const { start, end } = filter;
-    const canJoin = cfg.canJoinSessions;
 
     let stored = storedSessions.filter(
       item => moment(item.created).isBetween(start, end));
@@ -104,7 +90,6 @@ class SessionList extends React.Component {
     const data = [...active, ...stored];
     return (
         <TablePaged rowCount={data.length} data={data} pageSize={50}>
-
           <Column
             header={<Cell> Type </Cell> }
             cell={<TypeCell /> }
@@ -113,7 +98,6 @@ class SessionList extends React.Component {
             header={<Cell> User / IP Address </Cell> }
             cell={<UsersCell /> }
           />
-
           <Column
             columnKey="description"
             header={
@@ -121,7 +105,6 @@ class SessionList extends React.Component {
             }
             cell={<DescriptionCell /> }
           />
-
           <Column
             columnKey="created"
             header={

@@ -15,10 +15,9 @@ limitations under the License.
 */
 
 import React from 'react';
-import styled from 'styled-components'
 import PropTypes from 'prop-types';
 import { Auth2faTypeEnum } from 'app/services/enums';
-import { Card, Input, Label, Button } from 'shared/components';
+import { Typography, Text, Card, Input, Label, Button } from 'shared/components';
 import { Formik } from 'formik';
 import Invite2faData from './TwoFaInfo';
 import Alert from 'shared/components/Alerts';
@@ -85,7 +84,9 @@ export class InviteForm extends React.Component {
 
     return (
       <React.Fragment>
-        <UserName>{user}</UserName>
+        <Text breakAll mt={1} mb={3} fontSize={5}>
+          {user}
+        </Text>
         <Label hasError={passError}>
           {passError || "Password"}
         </Label>
@@ -122,7 +123,6 @@ export class InviteForm extends React.Component {
                 placeholder="123 456"
               />
             </Box>
-
             <Box ml="2" width="55%" textAlign="center" pt={3}>
               <Button target="_blank" block as="a" size="small" link href="https://support.google.com/accounts/answer/1066447?co=GENIE.Platform%3DiOS&hl=en&oco=0">Download Google Authenticator</Button>
             </Box>
@@ -135,25 +135,6 @@ export class InviteForm extends React.Component {
   isOTP() {
     let { auth2faType } = this.props;
     return needs2fa(auth2faType) && auth2faType === Auth2faTypeEnum.OTP;
-  }
-
-  render2faFields() {
-    let { auth2faType } = this.props;
-    if (needs2fa(auth2faType) && auth2faType === Auth2faTypeEnum.OTP) {
-      return (
-      <div className="form-group">
-        <input
-          autoComplete="off"
-          value={this.state.token}
-          onChange={e => this.onChangeState('token', e.target.value)}
-          className="form-control required"
-          name="token"
-          placeholder="Two factor token (Google Authenticator)"/>
-      </div>
-      )
-    }
-
-    return null;
   }
 
   renderSubmitBtn(onClick) {
@@ -185,14 +166,14 @@ export class InviteForm extends React.Component {
     const { isFailed, message } = attempt;
     const $error = isFailed ? <ErrorMessage message={message} /> : null;
     const needs2FAuth = needs2fa(auth2faType);
-    let $2FCode = null;
-    const boxWidth = needs2FAuth ? 712 : 464;
+    const boxWidth = (needs2FAuth ? 712 : 464) + 'px';
 
+    let $2FCode = null;
     if(needs2FAuth) {
       $2FCode = (
-        <Aside width="168px" p="5">
+        <Box flex="1" bg="bgQuaternary" p="5">
           <Invite2faData auth2faType={auth2faType} qr={invite.qr} />
-        </Aside>
+        </Box>
       );
     }
 
@@ -204,14 +185,13 @@ export class InviteForm extends React.Component {
       >
         {
           props => (
-            <Card bg="secondary" mt="4" mb="4" mr="auto" ml="auto" width={`${boxWidth}px`}>
+            <Card as="form" bg="bgSecondary" my="4" mx="auto" width={boxWidth}>
               <Flex>
-                <Box width="464px" p="5">
+                <Box flex="3" p="5">
                   {$error}
                   {this.renderNameAndPassFields(props)}
                   {this.renderSubmitBtn(props.handleSubmit)}
                 </Box>
-
                 {$2FCode}
               </Flex>
             </Card>
@@ -222,37 +202,23 @@ export class InviteForm extends React.Component {
   }
 }
 
+
+const U2FError = () => (
+  <Typography.p>
+    click <a target="_blank" href={U2F_ERROR_CODES_URL}>here</a>
+    to learn more about U2F error codes
+  </Typography.p>
+)
+
 export const ErrorMessage = ({ message }) => {
   message = message || '';
-  if(message.indexOf('U2F') !== -1 ) {
-    return (
-      <label className="grv-invite-login-error">
-        {message}
-        <br />
-        <small className="grv-invite-login-error-u2f-codes">
-          <span>
-            click <a target="_blank" href={U2F_ERROR_CODES_URL}>here</a>
-            to learn more about U2F error codes
-          </span>
-        </small>
-      </label>
-    )
-  }
-
+  const $helpBox = message.indexOf('U2F') !== -1 ? <U2FError/> : null
   return (
-    <Alert>{message} </Alert>
+    <>
+      <Alert>{message} </Alert>
+      {$helpBox}
+    </>
   )
 }
-
-const Aside = styled(Box)`
-  background: ${props => props.theme.colors.bgQuaternary };
-`
-
-const UserName = styled.div`
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 40px;
-  margin: 0 0 16px 0;
-`
 
 export default InviteForm;

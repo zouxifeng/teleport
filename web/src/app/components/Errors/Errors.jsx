@@ -15,57 +15,41 @@ limitations under the License.
 */
 
 import React from 'react';
-import styled from 'styled-components'
-import {colors} from 'shared/components/theme';
-import Alert from 'shared/components/Alerts';
+import { Alert, Card as BaseCard} from 'shared/components';
 import Typography from 'shared/components/Typography';
+import * as Links from './../Links';
 
-const MSG_ERROR_LOGIN_FAILED = 'Login unsuccessful';
-const MSG_ERROR_DEFAULT = 'Internal Error';
-const MSG_ERROR_NOT_FOUND = '404 Not Found';
-const MSG_ERROR_NOT_FOUND_DETAILS = `Looks like the page you are looking for isn't here any longer.`;
-const MSG_ERROR_ACCESS_DENIED = 'Access denied';
-
-const Details = ({err='', message=''}) => {
-  const details = message ? <p>{message}</p> : null;
-  const errMessage = err ? <Alert mt={4}>{err}</Alert> : null;
-
-  return (
-    <div>
-      {errMessage} {details}
-      <p>
-        If you believe this is an issue with Teleport,
-        please <a href="https://github.com/gravitational/teleport/issues/new">create a GitHub issue.</a>
-      </p>
-    </div>
-  );
-}
-
-const NotFound = ({err}) => (
+const NotFound = ({ message }) => (
   <Card>
-    <Typography.h1 mb={4} textAlign="center">{MSG_ERROR_NOT_FOUND}</Typography.h1>
-    <Details err={err} message={MSG_ERROR_NOT_FOUND_DETAILS}/>
+    <CardHeader>404 Not Found</CardHeader>
+    <CardContent message={message}/>
   </Card>
 )
 
-const AccessDenied = ({err, message}) => (
+const AccessDenied = ({ message}) => (
   <Card>
-    <Typography.h1 mb={4} textAlign="center">{MSG_ERROR_ACCESS_DENIED}</Typography.h1>
-    <Details err={err} message={message}/>
+    <CardHeader>Access denied</CardHeader>
+    <CardContent message={message}/>
   </Card>
 )
 
-const Failed = ({err, message}) => (
+const Failed = ({message}) => (
   <Card>
-    <Typography.h1 mb={4} textAlign="center">{MSG_ERROR_DEFAULT}</Typography.h1>
-    <Details err={err} message={message}/>
+    <CardHeader>Internal Error</CardHeader>
+    <CardContent message={message}/>
   </Card>
 )
 
-const LoginFailed = ({err, message }) => (
+const LoginFailed = ({ message }) => (
   <Card>
-    <Typography.h1 mb={4} textAlign="center">{MSG_ERROR_LOGIN_FAILED}</Typography.h1>
-    <Details err={err} message={message}/>
+    <CardHeader>Login unsuccessful</CardHeader>
+    <CardContent
+      message={message}
+      desc={(
+        <span>
+          <Links.Login>Please try again</Links.Login>, if the problem persists, contact your system administrator.
+        </span>
+      )}/>
   </Card>
 )
 
@@ -76,19 +60,34 @@ export {
   LoginFailed
 };
 
-const Card = styled.div`
-  background-color: ${colors.bgLight};
-  border-radius: 8px;
-  box-sizing: border-box;
-  box-shadow: 0 0 32px rgba(0, 0, 0, .12), 0 8px 32px rgba(0, 0, 0, .24);
-  color: ${colors.text};
-  margin: 32px auto;
-  padding: 40px;
-  width: 540px;
 
+const CardHeader = props =>  (
+  <Typography.h1 mb={4} textAlign="center" children={props.children}/>
+)
 
-  p {
-    line-height: 32px;
-  }
-`
+const CardContent = ({ message='', desc }) => {
+  const $desc = desc ? <Typography.p>{desc}</Typography.p> : null;
+  const $errMessage = message ? <Alert mt={4}>{ message }</Alert> : null;
 
+  return (
+    <div>
+      {$errMessage} {$desc}
+      <Typography.p>
+        If you believe this is an issue with Teleport,
+        please <Links.NewIssue>create a GitHub issue.</Links.NewIssue>
+      </Typography.p>
+    </div>
+  );
+}
+
+const Card = ({children}) => (
+  <BaseCard
+    color='text'
+    bg='bgLight'
+    width='540px'
+    mx='auto'
+    my={4}
+    p={5}
+    children={children}
+  />
+)

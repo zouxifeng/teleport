@@ -124,6 +124,7 @@ export class Terminal extends React.Component {
     const isFileTransferDialogOpen = fileStore.isOpen;
     const $xterm = this.renderXterm(termStore);
 
+
     return (
       <Portal>
         <StyledTerminal>
@@ -135,13 +136,17 @@ export class Terminal extends React.Component {
             onClose={this.onCloseFileTransfer}
           />
           <Flex flexDirection="column" height="100%" width="100%">
-            <ActionBar
-              onOpenUploadDialog={this.onOpenUploadDialog}
-              onOpenDownloadDialog={this.onOpenDownloadDialog}
-              isOpen={isFileTransferDialogOpen}
-              title={title}
-              onClose={this.onClose} />
+            <Box px={2}>
+              <ActionBar
+                onOpenUploadDialog={this.onOpenUploadDialog}
+                onOpenDownloadDialog={this.onOpenDownloadDialog}
+                isFileTransferDialogOpen={isFileTransferDialogOpen}
+                title={title}
+                onClose={this.onClose} />
+            </Box>
+            <XtermBox px={2}>
               {$xterm}
+            </XtermBox>
           </Flex>
         </StyledTerminal>
       </Portal>
@@ -157,15 +162,15 @@ const ErrorIndicator = ({ text }) => (
 )
 
 const SidNotFoundError = ({ onNew, onReplay }) => (
-    <Box my={10} mx="auto" width="300px">
-      <Typography.h4 textAlign="center">The session is no longer active</Typography.h4>
-      <Button block onClick={onNew} my={4}>
-        <Icon.Cli /> Start New Session
-      </Button>
-      <Button block  secondary onClick={onReplay}>
-        <Icon.CirclePlay /> Replay Session
-      </Button>
-    </Box>
+  <Box my={10} mx="auto" width="300px">
+    <Typography.h4 textAlign="center">The session is no longer active</Typography.h4>
+    <Button block onClick={onNew} my={4}>
+      <Icon.Cli /> Start New Session
+    </Button>
+    <Button block secondary onClick={onReplay}>
+      <Icon.CirclePlay /> Replay Session
+    </Button>
+  </Box>
 )
 
 function mapStoreToProps() {
@@ -199,30 +204,29 @@ function mapStateToProps(props) {
 
 export default connect(mapStoreToProps, mapStateToProps)(Terminal);
 
+const XtermBox = styled(Box)`
+  height: 100%;
+  overflow: auto;
+  width: 100%;
+`
+
 const StyledTerminal = styled.div`
-  left: 0;
-  right: 0;
-  position: fixed;
-  top: 0;
-  bottom: 0;
   background-color:${props => props.theme.colors.bgTerminal};
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 
   .grv-terminal {
-    background: none;
     height: 100%;
     width: 100%;
     font-size: 14px;
-    line-height: 18px;
-    padding: 48px 16px 16px 16px;
-  }
-
-  .terminal .xterm-rows > div {
-    line-height: 18px;
-    white-space: nowrap;
+    line-height: normal;
+    overflow: auto;
   }
 
   .grv-terminal .terminal {
-    background: none;
     font-family: ${fonts.mono};
     border: none;
     font-size: inherit;
@@ -231,11 +235,11 @@ const StyledTerminal = styled.div`
   }
 
   .grv-terminal .terminal .xterm-viewport {
-    background: none;
+    background-color:${props => props.theme.colors.bgTerminal};
     overflow-y: hidden;
   }
 
   .grv-terminal .terminal * {
-
+    font-weight: normal!important;
   }
 `;

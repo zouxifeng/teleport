@@ -1,4 +1,5 @@
 import {
+  Icon,
   AddUsers,
   Amex,
   Apartment,
@@ -114,6 +115,7 @@ import {
 } from './Icon';
 
 export {
+  Icon,
   AddUsers,
   Amex,
   Apartment,

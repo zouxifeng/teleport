@@ -33,32 +33,28 @@ export const AppErrorEnum = {
   ACCESS_DENIED: 'access_denied'
 };
 
-export const AppError = ({ category, err, message }) => {
-  let content = null;
+const mapToCmpt = {
+  [AppErrorEnum.FAILED_TO_LOGIN]: LoginFailed,
+  [AppErrorEnum.NOT_FOUND]: NotFound,
+  [AppErrorEnum.ACCESS_DENIED]: AccessDenied,
+}
 
-  switch (category) {
-    case AppErrorEnum.FAILED_TO_LOGIN:
-      content = <LoginFailed err={err} message={message} />; break;
-    case AppErrorEnum.NOT_FOUND:
-      content = <NotFound  err={err} />; break;
-    case AppErrorEnum.ACCESS_DENIED:
-      content = <AccessDenied err={err} message={message} />; break;
-    default:
-      content = <Failed err={err} message={message} />;
-  }
-
+export const AppError = ({ category, message }) => {
+  const Cmpt = mapToCmpt[category] || Failed;
   return (
     <div>
       <Logo src={logoSvg}/>
-      {content}
+      <Cmpt message={message}/>
     </div>
   );
 };
 
 export default withDocTitle("Error", ({ match }) => {
-  const { category, err } = match.params;
+  const category = match.params.type;
   const message = getUrlParameter('details');
   return (
-    <AppError category={category} err={err} message={message} />
+    <AppError category={category} message={message} />
   )
 });
+
+

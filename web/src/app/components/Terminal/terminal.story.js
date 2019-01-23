@@ -30,7 +30,7 @@ storiesOf('Teleport/Terminal', module)
   .add('Loading', () => {
     const props = {
       ...defaultProps,
-      termStore: new TermRec().setStatus({ isLoading: true })
+      termStore: new TermRec(termJson).setStatus({ isLoading: true })
     }
 
     return (
@@ -40,7 +40,7 @@ storiesOf('Teleport/Terminal', module)
   .add('Error', () => {
     const props = {
       ...defaultProps,
-      termStore: new TermRec().setStatus({
+      termStore: new TermRec(termJson).setStatus({
         isError: true,
         errorText: 'system error with long text'
       })
@@ -53,7 +53,7 @@ storiesOf('Teleport/Terminal', module)
   .add('NotFound', () => {
     const props = {
       ...defaultProps,
-      termStore: new TermRec().setStatus({
+      termStore: new TermRec(termJson).setStatus({
         isNotFound: true,
       })
     }
@@ -62,3 +62,8 @@ storiesOf('Teleport/Terminal', module)
       <Terminal {...props} />
     );
   });
+
+const termJson = {
+  hostname: 'localhost',
+  login: 'support',
+}

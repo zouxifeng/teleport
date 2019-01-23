@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Typography from 'shared/components/Typography';
 import InputSearch from 'app/components/InputSearch';
+import { Flex } from 'shared/components';
 
 const Header = ({
   title = '',
@@ -12,14 +12,14 @@ const Header = ({
   let $search = null;
 
   if(onSearchChange) {
-    $search = <InputSearch value={searchValue} onChange={onSearchChange} />;
+    $search = <InputSearch autoFocus value={searchValue} onChange={onSearchChange} />;
   }
 
   return (
-    <StyledHeader>
-      <Typography.h1>{title}</Typography.h1>
+    <Flex>
+      <Typography.h1 mr={5} mb={0}>{title}</Typography.h1>
       {$search}
-    </StyledHeader>
+    </Flex>
   );
 };
 
@@ -32,17 +32,3 @@ Header.displayName = 'Header';
 
 export default Header;
 
-const StyledHeader = styled.header`
-  height: 40px;
-
-  &::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
-
-  h1 {
-    float: left;
-    margin: 0 40px 0 0;
-  }
-`;

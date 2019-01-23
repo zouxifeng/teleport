@@ -44,6 +44,20 @@ storiesOf('Teleport/Invite/InviteForm', module)
       <InviteForm
         {...props}
       />);
+  })
+  .add('with U2F error', () => {
+    const props = {
+      ...defaultProps,
+      attempt: {
+        isFailed: true,
+        message: "U2F error"
+      }
+    }
+
+    return (
+      <InviteForm
+        {...props}
+      />);
   });
 
 const invite = {

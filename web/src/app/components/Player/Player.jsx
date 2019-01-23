@@ -21,7 +21,6 @@ import Xterm from './Xterm';
 import Alert from 'shared/components/Alerts';
 import { TtyPlayer } from 'app/lib/term/ttyPlayer';
 import { Indicator, Text, Typography, Box } from 'shared/components';
-import { fonts } from 'shared/components/theme';
 export default class Player extends React.Component {
 
   constructor(props) {
@@ -109,13 +108,13 @@ export default class Player extends React.Component {
     if(eventCount > 0) {
       $progressBar = (
         <ProgressBar
-        isPlaying={isPlaying}
-        time={time}
-        min={min}
-        max={duration}
-        value={current}
-        onToggle={this.onTogglePlayStop}
-        onChange={this.onMove}/>
+          isPlaying={isPlaying}
+          time={time}
+          min={min}
+          max={duration}
+          value={current}
+          onToggle={this.onTogglePlayStop}
+          onChange={this.onMove}/>
       );
     }
 
@@ -124,10 +123,12 @@ export default class Player extends React.Component {
 
   renderPlayer() {
     return (
-      <div>
-        <Xterm tty={this.tty} />
+      <XXX>
+        <StyledXterm>
+          <Xterm tty={this.tty} />
+        </StyledXterm>
         {this.renderProgressBar()}
-      </div>
+      </XXX>
     );
   }
 
@@ -159,4 +160,20 @@ export default class Player extends React.Component {
 }
 
 const StyledPlayer = styled.div`
+  height: 100%;
+  width: 100%;
 `;
+
+const XXX = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+`;
+
+const StyledXterm = styled.div`
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+`

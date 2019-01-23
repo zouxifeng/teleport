@@ -11,11 +11,12 @@ export const fonts = {
   mono: getMonoFont()
 }
 
-export const regular = 400
-export const bold = 600
-export const fontSizes = [10, 12, 14, 16, 18, 28, 34];
-export const fontWeights = { regular, bold }
+export const regular = 400;
+export const bold = 600;
+export const fontSizes = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 34];
+export const fontWeights = { regular, bold };
 export const space = [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80];
+export const minHeights = [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80];
 
 export const colors = {
   accent: '#FA2A6A',
@@ -28,7 +29,6 @@ export const colors = {
   terminal: '#28FE14',
   terminalDark: '#18381F',
 
-  // ALERTS/NOTICE COLORS
   error: '#FF1744',
   errorDark: '#D41439',
   warning: '#FF9100',
@@ -46,14 +46,15 @@ export const colors = {
   secondaryLight: '#222C59',
   text: '#263238',
 
+  bgSubtle: '#f8f9fa',
   bgError: '#FEE5ED',
   bgLight: '#FFFFFF',
   bgPrimary: '#0C143D',
   bgQuaternary: '#1B234A',
   bgSecondary: '#222C59',
   bgSuccess: '#00BFA5',
+  bgTerminal: '#010B1C',
   bgTertiary: '#263266',
-  bgTerminal: '#010B1C'
 }
 
 export const borders = [
@@ -72,9 +73,12 @@ const theme = {
   font,
   fontWeights,
   space,
+  minHeights: space,
   borders,
   regular,
-  bold
+  bold,
+  // disabled media queries for style-system
+  breakpoints: []
 }
 
 export default theme;

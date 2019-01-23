@@ -36,10 +36,10 @@ export function setSiteId(siteId) {
   reactor.dispatch(APP.SET_SITE_ID, siteId);
 }
 
-export function initApp(siteId, featureActivator) {
+export function initApp(clusterId, featureActivator) {
   initAppStatus.start();
   // get the list of available clusters
-  return fetchInitData(siteId)
+  return fetchInitData(clusterId)
     .then(() => {
       featureActivator.onload();
       initAppStatus.success();
@@ -55,15 +55,14 @@ export function refresh() {
     fetchNodes()]);
 }
 
-export function fetchInitData(siteId) {
+export function fetchInitData(clusterId) {
   return Promise.all([fetchSites(), fetchUserContext()])
     .then(([masterSiteId])=> {
-      const selectedCluster = siteId || masterSiteId;
-      setSiteId(selectedCluster);
-
+      setSiteId(masterSiteId);
+      clusterId = clusterId || masterSiteId;
       return Promise.all([
-        fetchNodes(),
-        sessionActions.fetchActiveSessions()
+        fetchNodes(clusterId),
+        sessionActions.fetchActiveSessions(clusterId)
       ])
     });
 }

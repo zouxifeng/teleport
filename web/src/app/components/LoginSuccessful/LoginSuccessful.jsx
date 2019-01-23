@@ -15,47 +15,28 @@ limitations under the License.
 */
 
 import React from 'react';
-import styled from 'styled-components'
-import {colors} from 'shared/components/theme';
 import Typography from 'shared/components/Typography';
 import Logo from 'shared/components/Logo';
 import logoSvg from 'shared/assets/images/teleport-medallion.svg';
-import Button from 'shared/components/Button';
+import { Card, Button } from 'shared/components';
 import * as Icon from 'shared/components/Icon';
 import { withDocTitle } from './../DocumentTitle';
 
-
 export const LoginSuccessful = () => (
-  <div>
+  <>
     <Logo src={logoSvg}/>
-
-    <StyledLoginSuccessful>
-      <Icon.CircleCheck mb={3} fontSize={64} color={colors.success}/>
-      <Typography.h2 m={0}>Login Successful</Typography.h2>
+    <Card width="540px" p={5} my={4} mx="auto" textAlign="center">
+      <Icon.CircleCheck mb={3} fontSize={64} color="success"/>
+      <Typography.h2>
+        Login Successful
+      </Typography.h2>
       <Typography.p>
         You have successfully signed into your account.
         You can close this window and continue using the product.
-        </Typography.p>
+      </Typography.p>
       <Button secondary>Close Window</Button>
-    </StyledLoginSuccessful>
-  </div>
+    </Card>
+  </>
 )
 
-export default withDocTitle("Success", LoginSuccessful)
-
-
-const StyledLoginSuccessful = styled.div`
-  background-color: ${colors.bgSecondary};
-  border-radius: 8px;
-  box-sizing: border-box;
-  box-shadow: 0 0 32px rgba(0, 0, 0, .12), 0 8px 32px rgba(0, 0, 0, .24);
-  color: ${colors.light};
-  margin: 32px auto;
-  padding: 40px;
-  text-align: center;
-  width: 540px;
-
-  p {
-    line-height: 32px;
-  }
-`
+export default withDocTitle("Success", LoginSuccessful);

@@ -17,10 +17,10 @@ limitations under the License.
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FileToReceive, FileToSend } from './File';
 import DownloadForm from './DownloadForm';
 import UploadForm from './UploadForm';
-import * as Icon from 'shared/components/Icon';
+import FileList from './FileList';
+import { CloseButton as TermCloseButton } from './../Elements';
 
 export default class FileTransferDialog extends Component {
 
@@ -39,6 +39,10 @@ export default class FileTransferDialog extends Component {
       isUpload,
       blob
     })
+  }
+
+  componentWillUnmount(){
+    this.props.onClose();
   }
 
   onDownload = location => {
@@ -88,49 +92,11 @@ export default class FileTransferDialog extends Component {
           onRemove={onTransferRemove}
           onUpdate={onTransferUpdate}
           files={latestFirst} />
-
-        <CloseButton onClick={this.onClose} >
-          <Icon.Close />
-        </CloseButton>
+        <CloseButton onClick={this.onClose} />
       </StyledFileTransfer>
     )
   }
 }
-
-export const FileList  = ({ files, onUpdate, onRemove }) => {
-  if (files.length === 0) {
-    return null;
-  }
-
-  const $files = files.map(file => {
-    const key = file.id
-    const props = {
-      onUpdate,
-      key,
-      file,
-      onRemove
-    };
-
-    return file.isUpload ?
-      <FileToSend {...props}  /> :
-      <FileToReceive {...props} />
-  });
-
-  return (
-    <TransferTable>
-      <thead>
-        <tr>
-          <th className="is-left">File Path</th>
-          <th width="60" className="is-right">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {$files}
-      </tbody>
-    </TransferTable>
-  )
-}
-
 
 const StyledFileTransfer = styled.div`
   background: ${props => props.theme.colors.dark};
@@ -140,50 +106,26 @@ const StyledFileTransfer = styled.div`
   font-size: ${props => props.theme.fontSizes[0]}px;
   color: ${props => props.theme.colors.terminal};
   padding: 16px;
-  position: relative;
+  // replace it with the Portal component
+  position: absolute;
+  right: 8px;
+  top: 8px;
   width: 496px;
+  z-index: 2;
 `
 
-
-const TransferTable = styled.table`
-  font-size: ${props => props.theme.fontSizes[0]}px;
-  width: 100%;
-
-  .is-left {
-    text-align: left;
-  }
-
-  .is-right {
-    text-align: right;
-  }
-
-  thead {
-    th {
-      text-transform: uppercase;
-    }
-  }
-`
-
-const CloseButton = styled.button`
+const CloseButton = styled(TermCloseButton)`
   background: ${props => props.theme.colors.dark};
-  border: none;
-  border-radius: 2px;
-  font-size: ${props => props.theme.fontSizes[4]}px;
   color: ${props => props.theme.colors.light};
-  cursor: pointer;
+  font-size: ${props => props.theme.fontSizes[4]}px;
   height: 20px;
-  outline: none;
   opacity: .56;
-  padding: 0;
   position: absolute;
   right: 8px;
   top: 8px;
   transition: all .3s;
   width: 20px;
-  z-index: 1;
-
   &:hover {
-    background: ${props => props.theme.colors.error};
     opacity: 1;
   }
 `

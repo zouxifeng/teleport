@@ -14,5 +14,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import File, { FileToReceive, FileToSend } from './File';
-export { FileToReceive, File, FileToSend };
+import FileListItem, { FileListItemReceive, FileListItemSend } from './FileListItem';
+export { FileListItemReceive, FileListItem, FileListItemSend };

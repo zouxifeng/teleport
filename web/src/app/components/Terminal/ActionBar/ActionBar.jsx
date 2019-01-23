@@ -18,7 +18,8 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import * as Icons from 'shared/components/Icon';
-import { Flex } from 'shared/components';
+import { Flex, Text } from 'shared/components';
+import { CloseButton } from './../Elements';
 
 export default class ActionBar extends React.Component {
 
@@ -38,10 +39,6 @@ export default class ActionBar extends React.Component {
     this.openFileTransferDialog(false);
   }
 
-  renderTab() {
-
-  }
-
   render() {
     const {
       isFileTransferDialogOpen,
@@ -51,34 +48,30 @@ export default class ActionBar extends React.Component {
     } = this.props;
 
     return (
-      <Flex height="32px" mt={1}>
-        <StyledTab title={title}>
-          <button title="Close" onClick={this.close}>
-            <Icons.Close />
-          </button>
-          {title}
-        </StyledTab>
-        <Flex>
-          <IconButton
-            title="Download files"
-            isOpen={isFileTransferDialogOpen}
-            onClick={onOpenDownloadDialog}>
-            <Icons.Upload />
-          </IconButton>
-          <IconButton
-            title="Upload files"
-            isOpen={isFileTransferDialogOpen}
-            onClick={onOpenUploadDialog}>
-            <Icons.Download />
-          </IconButton>
-        </Flex>
+      <Flex height="32px" my={1} alignItems="flex-start">
+        <Tab>
+          <CloseButton mr={1} onClick={this.close}/>
+          <Text maxWidth={2} fontSize={1}>{title}</Text>
+        </Tab>
+        <IconButton
+          title="Download files"
+          disabled={isFileTransferDialogOpen}
+          onClick={onOpenDownloadDialog}>
+          <Icons.Download />
+        </IconButton>
+        <IconButton
+          title="Upload files"
+          disabled={isFileTransferDialogOpen}
+          onClick={onOpenUploadDialog}>
+          <Icons.Upload />
+        </IconButton>
       </Flex>
     )
   }
 }
 
 ActionBar.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
+  isFileTransferDialogOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onOpenDownloadDialog: PropTypes.func.isRequired,
   onOpenUploadDialog: PropTypes.func.isRequired,
@@ -86,7 +79,7 @@ ActionBar.propTypes = {
 };
 
 const isOpen = props => {
-  if (props.isOpen) {
+  if (props.disabled) {
     return {
       opacity: 0.24,
       cursor: "not-allowed"
@@ -94,40 +87,15 @@ const isOpen = props => {
   }
 }
 
-
-const StyledTab = styled.div`
-  box-sizing: border-box;
-  font-size: ${props => props.theme.fontSizes[1]}px;
-  height: 32px;
-  line-height: 16px;
-  padding: 8px 16px 8px 40px;
-  position: relative;
-
-  button {
-    background: ${props => props.theme.colors.errorDark};
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-    height: 16px;
-    outline: none;
-    padding: 0;
-    position: absolute;
-    top: 8px;
-    transition: all .3s;
-    left: 16px;
-    width: 16px;
-    z-index: 1;
-
-    &:hover {
-      background: ${props => props.theme.colors.error};
-    }
-  }
-`
+const Tab = ({ children }) => (
+  <Flex mr={2} py={1} children={children} />
+)
 
 const IconButton = styled.button`
   background: none;
   border: none;
-  border-radius: 2px;  width: 24px;
+  border-radius: 2px;
+  width: 24px;
   height: 32px;
   color: ${props => props.theme.colors.light};
   cursor: pointer;

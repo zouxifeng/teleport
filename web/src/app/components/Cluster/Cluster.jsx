@@ -26,6 +26,7 @@ import cfg from 'app/config';
 import clusterGetters from 'app/flux/sites/getters';
 import { Flex, Box, SideNav, SideNavItem } from 'shared/components';
 import * as Icon from 'shared/components/Icon';
+import SideNavItemIcon from 'shared/components/SideNav/SideNavItemIcon';
 import ClusterNodes from './../ClusterNodes';
 import ClusterSessions from './../ClusterSessions';
 import ClusterSelector from './ClusterSelector';
@@ -46,51 +47,36 @@ export class Cluster extends React.Component {
 
     return (
       <Flex height="100%">
-        <SideNav height="100%">
+        <SideNav>
           <AppLogo />
-          <SideNavItem as={props => (
-            <NavLink className={props.className}
-              exact
-              to={cfg.getClusterUrl(clusterId)}
-            >
-              <Icon.Layers fontSize="24px"/>
+          <SideNavItem as={NavLink} exact to={cfg.getClusterUrl(clusterId)}>
+            <SideNavItemIcon as={Icon.Layers} />
               Nodes
-            </NavLink>
-            )}
-          />
-          <SideNavItem as={props => (
-            <NavLink className={props.className}
-              to={cfg.getClusterSessionsUrl(clusterId)}>
-              <Icon.ListBullet fontSize="24px"/>
+          </SideNavItem>
+          <SideNavItem as={NavLink} to={cfg.getClusterSessionsUrl(clusterId)}>
+            <SideNavItemIcon as={Icon.ListBullet} />
               Audit Log
-            </NavLink>
-            )}
-          />
+          </SideNavItem>
         </SideNav>
-        <Flex flexDirection="column" width="100%" px={5}>
-          <div>
-            <AppBar>
-              <ClusterSelector
-                value={clusterId}
-                onChange={this.onChangeCluster}
-                options={clusterOptions}
-              />
-            </AppBar>
-          </div>
-          <Content>
-
-            <Box width="100%">
-              <Switch>
-                <Route exact path={cfg.routes.cluster} >
-                  <ClusterNodes clusterId={clusterId} />
-                </Route>
-                <Route exact path={cfg.routes.clusterSessions} >
-                  <ClusterSessions clusterId={clusterId} />
-                </Route>
-                <Route path={cfg.routes.terminal} component={Terminal} />
-                <Route path={cfg.routes.player} component={PlayerBox} />
-              </Switch>
-            </Box>
+        <Flex flexDirection="column" width="100%">
+          <AppBar topNavProps={{ pl: 5 }}>
+            <ClusterSelector
+              value={clusterId}
+              onChange={this.onChangeCluster}
+              options={clusterOptions}
+            />
+          </AppBar>
+          <Content px={5}>
+            <Switch>
+              <Route exact path={cfg.routes.cluster} >
+                <ClusterNodes clusterId={clusterId} />
+              </Route>
+              <Route exact path={cfg.routes.clusterSessions} >
+                <ClusterSessions clusterId={clusterId} />
+              </Route>
+              <Route path={cfg.routes.terminal} component={Terminal} />
+              <Route path={cfg.routes.player} component={PlayerBox} />
+            </Switch>
           </Content>
         </Flex>
       </Flex>

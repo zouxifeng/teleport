@@ -1,99 +1,99 @@
 import styled from 'styled-components';
-import { space, color, textAlign } from 'styled-system';
+import { space, width, fontSize, color, textAlign, fontWeight } from 'styled-system';
 
 const Typography = styled.div`
   margin: 0;
   ${space}
   ${color}
   ${textAlign}
+  ${fontWeight}
+  ${fontSize}
+  ${width}
 `
 
 Typography.displayName = 'Typography';
 
 
 Typography.h1 = styled(Typography)`
-  font-weight: 200;
-  font-size: ${props => props.theme.fontSizes[6]}px;
   line-height: 40px;
-  margin: 0 0 32px 0;
 `;
 
 Typography.h1.defaultProps = {
-  as: "h1"
+  as: 'h1',
+  mb: 4,
+  fontWeight: 200,
+  fontSize: 10
 }
 
 Typography.h2 = styled(Typography)`
-  font-weight: 600;
-  font-size: ${props => props.theme.fontSizes[5]}px;
   line-height: 56px;
   text-transform: uppercase;
 `;
 
 Typography.h2.defaultProps = {
-  as: "h2"
+  as: 'h2',
+  fontWeight: 200,
+  fontSize: 9
 }
 
 Typography.h3 = styled(Typography)`
-  font-weight: 500;
-  font-size: ${props => props.theme.fontSizes[4]}px;
   line-height: 24px;
-  margin: 0 0 24px 0;
 `;
 
 Typography.h3.defaultProps = {
-  as: "h3",
+  as: 'h3',
+  fontWeight: 500,
+  fontSize: 4,
+  mb: 3
 }
 
 Typography.h4 = styled(Typography)`
-  font-weight: 500;
-  font-size: ${props => props.theme.fontSizes[2]}px;
   line-height: 40px;
-  margin: 0;
 `;
 
 Typography.h4.defaultProps = {
-  as: "h4"
+  as: 'h4',
+  fontWeight: 500,
+  fontSize: 2
 }
 
 Typography.h5 = styled(Typography)`
   display: block;
-  font-weight: 300;
-  font-size: ${props => props.theme.fontSizes[1]}px;
   line-height: 20px;
-  margin: 0 0 16px 0;
   opacity: .87;
-
   a {
     color: inherit;
   }
 `;
 
 Typography.h5.defaultProps = {
-  as: "h5"
+  as: 'h5',
+  fontSize: 1,
+  fontWeight: 300,
+  mb: 2
 }
 
 Typography.p = styled(Typography)`
-  font-weight: 300;
-  font-size: ${props => props.theme.fontSizes[3]}px;
   line-height: 32px;
-  margin: 0 0 32px 0;
 `;
 
 Typography.p.defaultProps = {
-  as: "p"
+  as: "p",
+  fontWeight: 300,
+  fontSize: 3,
+  mb: 4
 }
 
 Typography.small = styled(Typography)`
   display: inline-block;
-  font-weight: 300;
-  font-size: ${props => props.theme.fontSizes[1]}px;
   line-height: 16px;
   opacity: .87;
 `;
 
-
 Typography.small.defaultProps = {
-  as: "small"
+  as: 'small',
+  fontWeight: 300,
+  fontSize: 1
 }
 
 export default Typography;

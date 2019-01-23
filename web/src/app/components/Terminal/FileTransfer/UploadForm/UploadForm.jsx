@@ -17,7 +17,7 @@ limitations under the License.
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
+import * as Elements from './../Elements';
 export default class UploadForm extends React.Component {
 
   static propTypes = {
@@ -122,17 +122,16 @@ export default class UploadForm extends React.Component {
     const { remoteLocation, files } = this.state;
     const isDldBtnDisabled = !remoteLocation || files.length === 0;
     const hasFiles = files.length > 0;
-    let dropzoneMessage = <a onClick={this.onOpenFilePicker}>Select files to upload or drag & drop them here</a>;
-
-    if(hasFiles) {
-      dropzoneMessage = <a onClick={this.onOpenFilePicker}> {files.length} files selected </a>;
-    }
+    const dropZoneText = hasFiles ? `${files.length} files selected` :
+      `Select files to upload or drag & drop them here`;
 
     return (
-      <Uploader>
-        <header>(SCP) UPLOAD Files</header>
-        <StyledLabel>Enter location to upload files</StyledLabel>
-        <StyledInput className="grv-file-transfer-input m-r-sm"
+      <Elements.Form color="terminal">
+        <Elements.Header>(SCP) UPLOAD Files</Elements.Header>
+        <Elements.Label>Upload destination </Elements.Label>
+        <Elements.Input className="grv-file-transfer-input m-r-sm"
+          width="100%"
+          mb={0}
           ref={e => this.inputRef = e}
           value={remoteLocation}
           autoFocus
@@ -140,7 +139,6 @@ export default class UploadForm extends React.Component {
           onChange={this.onFilePathChanged}
           onKeyDown={this.onKeyDown}
         />
-
         <input ref={e => this.fileSelectorRef = e} type="file"
           multiple
           style={{ display: "none" }}
@@ -148,70 +146,21 @@ export default class UploadForm extends React.Component {
           name="file"
           onChange={this.onFileSelected}
         />
-
-        <Dropzone ref={ e => this.refDropzone = e } onDragOver={e => e.preventDefault()} onDrop={this.onDrop}>
-          {dropzoneMessage}
+        <Dropzone
+          ref={ e => this.refDropzone = e }
+          onDragOver={e => e.preventDefault()}
+          onDrop={this.onDrop}>
+          <a onClick={this.onOpenFilePicker}>
+            {dropZoneText}
+          </a>
         </Dropzone>
-
-        <UploadButton disabled={isDldBtnDisabled} onClick={this.onUpload}>
+        <Elements.Button disabled={isDldBtnDisabled} onClick={this.onUpload}>
           Upload
-        </UploadButton>
-      </Uploader>
+        </Elements.Button>
+      </Elements.Form>
     )
   }
 }
-
-const Uploader = styled.div`
-  font-size: ${props => props.theme.fontSizes[0]}px;
-  color: ${props => props.theme.colors.terminal};
-
-  header {
-    font-size: ${props => props.theme.fontSizes[0]}px;
-    font-weight: 800;
-    line-height: 16px;
-    margin: 0 0 16px 0;
-    text-transform: uppercase;
-  }
-`;
-
-const UploadButton = styled.button`
-  background: none;
-  border: 1px solid ${props => props.theme.colors.terminal};
-  box-sizing: border-box;
-  color: ${props => props.theme.colors.terminal};
-  height: 24px;
-  margin: 0;
-  padding: 0;
-  text-transform: uppercase;
-  transition: all .3s;
-  width: 88px;
-
-  &:disabled {
-    border: 1px solid ${props => props.theme.colors.subtle};
-    color: ${props => props.theme.colors.subtle};
-    opacity: .24;
-  }
-`;
-
-const StyledLabel = styled.label`
-  color: ${props => props.theme.colors.terminal};
-  display: block;
-  margin: 0 0 8px 0;
-  line-height: 24px;
-  text-transform: uppercase;
-`
-
-const StyledInput = styled.input`
-  background: ${props => props.theme.colors.bgTerminal};
-  border: none;
-  box-sizing: border-box;
-  color: ${props => props.theme.colors.terminal};
-  height: 24px;
-  margin: 0;
-  outline: none;
-  padding: 0 8px;
-  width: 100%;
-`
 
 const Dropzone = styled.div`
   background: ${props => props.theme.colors.bgTerminal};

@@ -1,22 +1,28 @@
+import React from 'react'
 import styled from 'styled-components'
 import { space, fontSize, width, color } from 'styled-system'
 import './../../assets/icomoon/style.css';
-import {colors} from 'shared/components/theme';
 
-function makeFontIcon(name, iconClassName) {
-  const className = `icon ${iconClassName}`;
-  const Icon = styled.span.attrs({className: className})`
-    color: ${colors.light};
-    display: inline-block;
-    transition: color .3s;
-    ${space} ${width} ${color} ${fontSize}
-  `
+export const Icon = styled.span`
+  display: inline-block;
+  transition: color .3s;
+  ${space} ${width} ${color} ${fontSize}
+`
 
-  Icon.displayName = `Icon.${name}`;
-
-  return Icon;
+Icon.displayName = `Icon`;
+Icon.defaultProps = {
+  color: "light"
 }
 
+function makeFontIcon(name, iconClassName) {
+  const iconClass = `icon ${iconClassName}`;
+  return function({className = '', ...rest }){
+    const classes = `${iconClass} ${className}`;
+    return (
+      <Icon className={classes} {...rest }/>
+    );
+  }
+}
 
 export const AddUsers = makeFontIcon('AddUsers', 'icon-users-plus');
 export const Amex = makeFontIcon('Amex', 'icon-cc-amex');

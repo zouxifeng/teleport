@@ -16,12 +16,12 @@ limitations under the License.
 
 import React from 'react';
 import styled from 'styled-components';
-import { fonts } from 'shared/components/theme';
 import Portal from 'shared/components/Modal/Portal';
 import { close } from 'app/flux/player/actions';
 import Player from './Player';
 import DocumentTitle from './../DocumentTitle';
-import { Close } from 'shared/components/Icon';
+import { Flex, Box } from 'shared/components';
+import { fonts } from 'shared/components/theme';
 import cfg from 'app/config';
 
 class PlayerDialog extends React.Component {
@@ -43,46 +43,52 @@ class PlayerDialog extends React.Component {
     return (
       <Portal>
         <DocumentTitle title={title}>
-          <StyledBox>
-            <CloseButton>
-              <Close onClick={this.onClose}/>
-            </CloseButton>
-            <Player url={this.url}/>
-          </StyledBox>
+          <StyledTerminal>
+            <Flex flexDirection="column" height="100%" width="100%">
+              <Box px={2} height="60px">
+                FDSF
+              </Box>
+              <Player url={this.url}/>
+            </Flex>
+          </StyledTerminal>
         </DocumentTitle>
       </Portal>
     );
   }
 }
 
-const CloseButton = styled.button`
-  background: ${props => props.theme.colors.errorDark};
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
-  height: 16px;
-  outline: none;
-  padding: 0;
-  position: absolute;
-  top: 16px;
-  transition: all .3s;
-  left: 16px;
-  width: 16px;
-  z-index: 1;
-
-  &:hover {
-    background: ${props => props.theme.colors.error};
-  }
-`
-
-const StyledBox = styled.div`
-  background-color: ${props => props.theme.colors.bgTerminal};
+export const StyledTerminal = styled.div`
+  background-color:${props => props.theme.colors.bgTerminal};
+  bottom: 0;
   left: 0;
-  padding: 32px 16px 16px 16px;
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
-  bottom: 0;
-`
+
+  .grv-terminal {
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+    line-height: normal;
+    overflow: auto;
+  }
+
+  .grv-terminal .terminal {
+    font-family: ${fonts.mono};
+    border: none;
+    font-size: inherit;
+    line-height: normal;
+    position: relative;
+  }
+
+  .grv-terminal .terminal .xterm-viewport {
+    background-color:${props => props.theme.colors.bgTerminal};
+    overflow-y: hidden;
+  }
+
+  .grv-terminal .terminal * {
+    font-weight: normal!important;
+  }
+`;
 
 export default PlayerDialog;

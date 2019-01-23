@@ -197,7 +197,7 @@ class PasswordForm extends React.Component {
         initialValues={this.initialValues}
         >
         {props => (
-          <Card bg="secondary" mt="4" mb="4" width="456px" p="5">
+          <Card as="form" bg="bgSecondary" mt="4" mb="4" width="456px" p="5">
             {this.renderAttempt(attempt)}
             {this.renderFields(props)}
             <Button

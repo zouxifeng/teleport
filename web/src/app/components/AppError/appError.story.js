@@ -22,17 +22,12 @@ import { AppError, AppErrorEnum } from './AppError';
 storiesOf('Teleport/AppError', module)
   .add('Access Denied', () => {
     return (
-      <AppError
-        category={AppErrorEnum.ACCESS_DENIED}
-        err="some random server error text"
-      />);
+      <AppError category={AppErrorEnum.ACCESS_DENIED} />);
   })
   .add('Failed Social Login', () => {
     return (
-      <AppError
-        category={AppErrorEnum.FAILED_TO_LOGIN}
-        err="some random server error text"
-        message="Please try again, if the problem persists, contact your system administrator."
+      <AppError category={AppErrorEnum.FAILED_TO_LOGIN}
+        message="some random server error text"
       />);
   })
   .add('Page Not Found', () => {
@@ -41,6 +36,6 @@ storiesOf('Teleport/AppError', module)
   })
   .add('Generic Internal Error', () => {
     return (
-      <AppError err="internal errror" />
+      <AppError message="internal error" />
     );
   });

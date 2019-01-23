@@ -79,30 +79,29 @@ export default class LoginForm extends React.Component {
 
     if(isProcessing && this.props.auth2faType === Auth2faTypeEnum.UTF) {
       $helpBlock = (
-        <Typography.small textAlign="center">
+        <Typography.small width="100%" textAlign="center">
           Insert your U2F key and press the button on the key
         </Typography.small>
       );
     }
 
-    const isDisabled = isProcessing;
+    const btnProps = {
+      onClick,
+      block: true,
+      disabled: isProcessing,
+      size: 'large',
+      type: 'submit',
+      mt: '5',
+      mb: '2',
+    }
 
     return (
-      <Box textAlign="center">
-        <Button
-          block
-          disabled={isDisabled}
-          size="large"
-          type="submit"
-          onClick={onClick}
-          mt="5"
-          mb="2"
-          >
+      <React.Fragment>
+        <Button {...btnProps}>
           SIGN INTO TELEPORT
         </Button>
-
         {$helpBlock}
-      </Box>
+      </React.Fragment>
     );
   }
 
@@ -113,13 +112,11 @@ export default class LoginForm extends React.Component {
     }
 
     return (
-      <Box p="5">
-        <SsoButtonList
-          prefixText="Login with "
-          isDisabled={attempt.isProcessing}
-          providers={authProviders}
-          onClick={this.onLoginWithSso} />
-      </Box>
+      <SsoButtonList
+        prefixText="Login with "
+        isDisabled={attempt.isProcessing}
+        providers={authProviders}
+        onClick={this.onLoginWithSso} />
     )
   }
 
@@ -132,22 +129,23 @@ export default class LoginForm extends React.Component {
     if(isOTP) {
       $tokenField = (
         <Flex>
-          <Box width="45%" mr="0">
+          <Box width="45%">
             <Label mt={3} hasError={tokenError}>
               Two factor token
               {tokenError && errors.token}
             </Label>
-            <Input id="token" fontSize={0}
+            <Input id="token"
               hasError={tokenError}
               autoComplete="off"
               value={values.token}
               onChange={handleChange}
               placeholder="123 456"
-              />
+            />
           </Box>
-
           <Box ml="2" width="55%" textAlign="center" pt={3}>
-            <Button target="_blank" block as="a" size="small" link href="https://support.google.com/accounts/answer/1066447?co=GENIE.Platform%3DiOS&hl=en&oco=0">Download Google Authenticator</Button>
+            <Button target="_blank" block as="a" size="small" link href="https://support.google.com/accounts/answer/1066447?co=GENIE.Platform%3DiOS&hl=en&oco=0">
+              Download Google Authenticator
+            </Button>
           </Box>
         </Flex>
       );
@@ -201,15 +199,15 @@ export default class LoginForm extends React.Component {
         >
           {
             props => (
-              <Card bg="secondary" mt="4" mb="4" mr="auto" ml="auto" width="456px">
+              <Card as="form" bg="bgSecondary" my="4" mx="auto" width="456px">
                 <Box p="5">
-                <Typography.h3 textAlign="center" color="light">
-                  SIGN INTO TELEPORT
-                </Typography.h3>
-                { isFailed && <Alert status="danger"> {message} </Alert>  }
-                {this.renderInputFields(props)}
-                {this.renderTokenField(props)}
-                {this.renderLoginBtn(props.handleSubmit)}
+                  <Typography.h3 textAlign="center" color="light">
+                    SIGN INTO TELEPORT
+                  </Typography.h3>
+                  { isFailed && <Alert status="danger"> {message} </Alert>  }
+                  {this.renderInputFields(props)}
+                  {this.renderTokenField(props)}
+                  {this.renderLoginBtn(props.handleSubmit)}
                 </Box>
                 <footer>
                   {this.renderSsoBtns()}

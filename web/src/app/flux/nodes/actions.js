@@ -2,14 +2,12 @@ import reactor from 'app/reactor';
 import { TLPT_NODES_RECEIVE } from './actionTypes';
 import api from 'app/services/api';
 import cfg from 'app/config';
-import { getters as appGetters } from 'app/flux/app/appStore';
 import Logger from 'app/lib/logger';
 
 const logger = Logger.create('flux/nodes');
 
-export function fetchNodes() {
-  const siteId = reactor.evaluate(appGetters.siteId);
-  return api.get(cfg.api.getSiteNodesUrl(siteId))
+export function fetchNodes(clusterId) {
+  return api.get(cfg.api.getSiteNodesUrl(clusterId))
     .then(res => res.items || [])
     .then(items => reactor.dispatch(TLPT_NODES_RECEIVE, items))
     .catch(err => {

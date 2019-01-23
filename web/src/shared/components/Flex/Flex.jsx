@@ -1,9 +1,6 @@
 import styled from 'styled-components'
+import Box from '../Box';
 import {
-  space,
-  width,
-  height,
-  color,
   alignItems,
   justifyContent,
   flexWrap,
@@ -13,9 +10,9 @@ import {
 
 import theme from './../theme'
 
-const Flex = styled.div`
+const Flex = styled(Box)`
   display: flex;
-  ${space} ${height} ${width} ${color} ${alignItems} ${justifyContent} ${flexWrap} ${flexDirection};
+  ${alignItems} ${justifyContent} ${flexWrap} ${flexDirection};
 `
 
 Flex.defaultProps = {

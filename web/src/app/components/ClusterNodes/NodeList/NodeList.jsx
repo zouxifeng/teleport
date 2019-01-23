@@ -42,7 +42,11 @@ const TagCell = ({rowIndex, data, ...props}) => {
     $content = <EmptyValue text="No assigned labels"/>;
   }
 
-  return <Cell {...props}>{$content}</Cell>;
+  return (
+    <Cell {...props}>
+      {$content}
+    </Cell>
+  )
 }
 
 

@@ -31,10 +31,7 @@ const DateCreatedCell = ({ rowIndex, data, ...props }) => {
   )
 };
 
-const DescriptionCell = ({ rowIndex, data, ...props }) => {
-  let rowData = data[rowIndex];
-
-  console.log(rowData);
+const DescriptionCell = (props) => {
   return (
     <Cell {...props}>
     Description
