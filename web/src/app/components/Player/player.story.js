@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import Player from './Player';
 import { TtyPlayer } from 'app/lib/term/ttyPlayer';
 import sample from 'app/lib/term/fixtures/streamData';
+import styled from 'styled-components';
 
 storiesOf('Teleport/Player', module)
   .add('loading', () => {
@@ -21,7 +22,7 @@ storiesOf('Teleport/Player', module)
   .add('not available (proxy enabled)', () => {
     const tty = new TtyPlayer("url");
     tty.connect = () => null;
-    tty._setStatusFlag({isReady: true});
+    tty._setStatusFlag({ isReady: true });
     return (
       <MockedPlayer tty={tty} />);
   })
@@ -31,7 +32,10 @@ storiesOf('Teleport/Player', module)
     tty._eventProvider._fetchEvents = () => Promise.resolve(events);
     tty._eventProvider._fetchContent = () => Promise.resolve(sample.data);
     return (
-      <MockedPlayer tty={tty} />);
+      <Box>
+        <MockedPlayer tty={tty} />
+      </Box>
+    );
   });
 
 class MockedPlayer extends Player {
@@ -40,3 +44,11 @@ class MockedPlayer extends Player {
     this.tty = props.tty
   }
 }
+
+const Box = styled.div`
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+`

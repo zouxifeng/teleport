@@ -13,7 +13,6 @@ const Typography = styled.div`
 
 Typography.displayName = 'Typography';
 
-
 Typography.h1 = styled(Typography)`
   line-height: 40px;
 `;
@@ -58,12 +57,7 @@ Typography.h4.defaultProps = {
 }
 
 Typography.h5 = styled(Typography)`
-  display: block;
   line-height: 20px;
-  opacity: .87;
-  a {
-    color: inherit;
-  }
 `;
 
 Typography.h5.defaultProps = {

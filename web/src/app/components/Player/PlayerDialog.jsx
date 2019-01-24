@@ -22,7 +22,6 @@ import Player from './Player';
 import { CloseButton as TermCloseButton } from './../Terminal/Elements';
 import DocumentTitle from './../DocumentTitle';
 import { Box } from 'shared/components';
-import { fonts } from 'shared/components/theme';
 import cfg from 'app/config';
 
 class PlayerDialog extends React.Component {
@@ -72,30 +71,6 @@ const StyledDialog = styled.div`
   position: absolute;
   right: 0;
   top: 0;
-
-  .grv-terminal {
-    font-size: 14px;
-    height: 100%;
-    line-height: normal;
-    width: 100%;
-  }
-
-  .grv-terminal .terminal {
-    border: none;
-    font-family: ${fonts.mono};
-    font-size: inherit;
-    line-height: normal;
-    position: relative;
-  }
-
-  .grv-terminal .terminal .xterm-viewport {
-    background-color:${props => props.theme.colors.bgTerminal};
-    overflow-y: hidden;
-  }
-
-  .grv-terminal .terminal * {
-    font-weight: normal!important;
-  }
 `;
 
 export default PlayerDialog;

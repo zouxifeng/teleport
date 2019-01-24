@@ -1,5 +1,6 @@
 import Input from './Input';
 import Button from './Button';
+import ButtonSso from './ButtonSso';
 import Alert from './Alert';
 import Card from './Card';
 import Text from './Text';
@@ -15,6 +16,7 @@ export {
   Alert,
   Box,
   Button,
+  ButtonSso,
   Card,
   Flex,
   Typography,

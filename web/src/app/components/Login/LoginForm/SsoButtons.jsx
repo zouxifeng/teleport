@@ -16,8 +16,7 @@ limitations under the License.
 
 import React from 'react';
 import { AuthProviderTypeEnum } from 'app/services/enums';
-import SsoButton from './../SsoButton';
-import { Box } from 'shared/components';
+import { Box, ButtonSso } from 'shared/components';
 
 function guessProviderType(name, type) {
   name = name.toLowerCase();
@@ -52,13 +51,13 @@ const SsoBtnList = ({providers, prefixText, isDisabled, onClick}) => {
     const title = `${prefixText} ${displayName}`
     const ssoType = guessProviderType(displayName, type);
     return (
-      <SsoButton key={index}
+      <ButtonSso key={index}
         type={ssoType}
         mt={4}
         disabled={isDisabled}
         onClick={e => { e.preventDefault(); onClick(item) }}>
         {title}
-      </SsoButton>
+      </ButtonSso>
     )
   })
 

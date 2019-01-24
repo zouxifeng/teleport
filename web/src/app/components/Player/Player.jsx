@@ -173,4 +173,28 @@ const XtermBox = styled(Box)`
   height: 100%;
   overflow: auto;
   width: 100%;
+
+  .grv-terminal {
+    font-size: 14px;
+    height: 100%;
+    line-height: normal;
+    width: 100%;
+  }
+
+  .grv-terminal .terminal {
+    border: none;
+    font-family: ${props => props.theme.font.mono};
+    font-size: inherit;
+    line-height: normal;
+    position: relative;
+  }
+
+  .grv-terminal .terminal .xterm-viewport {
+    background-color: ${props => props.theme.colors.bgTerminal};
+    overflow-y: hidden;
+  }
+
+  .grv-terminal .terminal * {
+    font-weight: normal!important;
+  }
 `

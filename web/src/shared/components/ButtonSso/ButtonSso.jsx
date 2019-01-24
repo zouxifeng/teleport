@@ -16,14 +16,22 @@ limitations under the License.
 
 import React from 'react';
 import styled from 'styled-components'
-import { Button } from 'shared/components';
-import * as Icons from 'shared/components/Icon';
-import { fade } from 'shared/components/utils/colorManipulator';
+import Button from '../Button';
+import * as Icons from '../Icon/Icon';
+import { fade } from '../utils/colorManipulator';
 
-const SsoButton = props => {
-  const { color, Icon } = pickSso(props.type);
+const TypeEnum = {
+  MICROSOFT: 'microsoft',
+  GITHUB: 'github',
+  BITBUCKET: 'bitbucket',
+  GOOGLE: 'google',
+};
+
+const ButtonSso = props => {
+  const { type, ...rest } = props;
+  const { color, Icon } = pickSso(type);
   return (
-    <StyledButton color={color} block {...props}>
+    <StyledButton color={color} block {...rest}>
       {Boolean(Icon) && (
         <IconBox>
           <Icon />
@@ -36,13 +44,13 @@ const SsoButton = props => {
 
 function pickSso(type) {
   switch (type) {
-    case 'microsoft':
+    case TypeEnum.MICROSOFT:
       return { color: '#2672ec', Icon: Icons.Windows };
-    case 'github':
+    case TypeEnum.GITHUB:
       return { color: '#444444', Icon: Icons.Github };
-    case 'bitbucket':
+    case TypeEnum.BITBUCKET:
       return { color: '#205081', Icon: Icons.BitBucket };
-    case 'google':
+    case TypeEnum.GOOGLE:
       return { color: '#dd4b39', Icon: Icons.Google };
     default:
       return { color: '#f7931e', Icon: Icons.OpenID };
@@ -73,4 +81,7 @@ const IconBox = styled.div`
   border-right: 1px solid rgba(0,0,0,.2);
 `
 
-export default SsoButton;
+export default ButtonSso;
+export {
+  TypeEnum
+}

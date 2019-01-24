@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import React from 'react';
+import styled from 'styled-components';
 import { Auth2faTypeEnum } from 'app/services/enums';
 import Typography from 'shared/components/Typography';
 
@@ -41,15 +42,23 @@ export default function Invite2faData(props) {
         <Typography.h4>
           Insert your U2F key
         </Typography.h4>
-        <Typography.h5>
+        <H5 fontSize={1}>
           Press the button on the U2F key after you press the sign up button
-        </Typography.h5>
-        <Typography.h5>
+        </H5>
+        <H5 fontSize={1}>
           <a a target="_blank" href={U2F_HELP_URL}>Learn more</a> about U2F 2-Step Verification.
-        </Typography.h5>
+        </H5>
       </div>
     )
   }
 
   return null;
 }
+
+const H5 = styled(Typography.h5)`
+  line-height: 20px;
+  opacity: .87;
+  a {
+    color: inherit;
+  }
+`
