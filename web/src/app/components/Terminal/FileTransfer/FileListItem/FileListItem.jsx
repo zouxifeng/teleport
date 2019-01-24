@@ -17,7 +17,7 @@ limitations under the License.
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import * as Icon from 'shared/components/Icon';
+import * as Icons from 'shared/components/Icon';
 import { Uploader, Downloader } from 'app/services/fileTransfer';
 import withHttpRequest from './withHttpRequest';
 import { CloseButton as TermCloseButton } from './../../Elements';
@@ -107,7 +107,7 @@ const Error = ({show, text}) => {
 }
 
 const CancelButton = ({ show, onClick }) => {
-  return show ? <StyledButton onClick={onClick}><Icon.Close/></StyledButton> : null;
+  return show ? <StyledButton onClick={onClick}><Icons.Close/></StyledButton> : null;
 }
 
 const StyledFileListItem = styled.div`

@@ -24,7 +24,7 @@ import * as playerActions from 'app/flux/player/actions';
 import * as fileActions from 'app/flux/fileTransfer/actions';
 import ActionBar from './ActionBar/ActionBar';
 import { Indicator, Flex, Text, Button, Box, Typography } from 'shared/components';
-import * as Icon from 'shared/components/Icon';
+import * as Icons from 'shared/components/Icon';
 import Xterm from './Xterm/Xterm';
 import FileTransferDialog from './FileTransfer';
 import Portal from 'shared/components/Modal/Portal';
@@ -164,10 +164,10 @@ const SidNotFoundError = ({ onNew, onReplay }) => (
   <Box my={10} mx="auto" width="300px">
     <Typography.h4 textAlign="center">The session is no longer active</Typography.h4>
     <Button block onClick={onNew} my={4}>
-      <Icon.Cli /> Start New Session
+      <Icons.Cli /> Start New Session
     </Button>
     <Button block secondary onClick={onReplay}>
-      <Icon.CirclePlay /> Replay Session
+      <Icons.CirclePlay /> Replay Session
     </Button>
   </Box>
 )

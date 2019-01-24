@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import theme from './../theme'
-import { Icon } from '../Icon'
+import Icon from '../Icon'
 import SideNavItem from './SideNavItem';
 
 const SideNavItemIcon = styled(Icon)`

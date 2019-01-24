@@ -114,8 +114,9 @@ import {
   Youtube,
 } from './Icon';
 
+export default Icon;
+
 export {
-  Icon,
   AddUsers,
   Amex,
   Apartment,

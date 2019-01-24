@@ -17,7 +17,7 @@ limitations under the License.
 import React from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
-import * as Icon from 'shared/components/Icon';
+import * as Icons from 'shared/components/Icon';
 import {colors} from 'shared/components/theme';
 
 class ClusterSelector extends React.Component {
@@ -28,7 +28,7 @@ class ClusterSelector extends React.Component {
 
     return (
       <StyledSelector>
-        <Icon.Cluster />
+        <Icons.Cluster />
         <Select
           styles={customStyles}
           value={title}

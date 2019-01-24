@@ -17,8 +17,7 @@ limitations under the License.
 import React from 'react';
 import styled from 'styled-components';
 import { Box } from 'shared/components';
-import * as Icons from 'shared/components/Icon/Icon';
-
+import * as Icons from 'shared/components/Icon';
 
 export class CardCluster extends React.Component {
 

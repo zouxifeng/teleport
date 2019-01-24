@@ -19,14 +19,14 @@ import Typography from 'shared/components/Typography';
 import Logo from 'shared/components/Logo';
 import logoSvg from 'shared/assets/images/teleport-medallion.svg';
 import { Card, Button } from 'shared/components';
-import * as Icon from 'shared/components/Icon';
+import * as Icons from 'shared/components/Icon';
 import { withDocTitle } from './../DocumentTitle';
 
 export const LoginSuccessful = () => (
   <>
     <Logo src={logoSvg}/>
     <Card width="540px" p={5} my={4} mx="auto" textAlign="center">
-      <Icon.CircleCheck mb={3} fontSize={64} color="success"/>
+      <Icons.CircleCheck mb={3} fontSize={64} color="success"/>
       <Typography.h2>
         Login Successful
       </Typography.h2>

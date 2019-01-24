@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import theme from './../theme'
-import { Icon } from 'shared/components/Icon'
+import Icon from 'shared/components/Icon'
 import MenuItem from './MenuItem';
 
 const MenuItemIcon =  styled(Icon)`

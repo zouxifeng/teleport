@@ -20,7 +20,7 @@ import { NavLink } from 'react-router-dom';
 import { sortBy } from 'lodash';
 import { isMatch } from 'app/lib/objectUtils';
 import { TablePaged, Column, Cell, TextCell, SortHeaderCell, SortTypes, EmptyIndicator } from 'shared/components/DataTable';
-import * as Icon from 'shared/components/Icon';
+import * as Icons from 'shared/components/Icon';
 import cfg from 'app/config';
 import history from 'app/services/history';
 
@@ -128,12 +128,12 @@ class LoginCell extends React.Component {
           {logins.length > 0 &&
             <StyledSession>
               <NavLink to={defaultTermUrl}>
-                <Icon.Cli/>
+                <Icons.Cli/>
                 <strong>{defaultLogin}</strong>
               </NavLink>
 
               <button onClick={this.onShowLoginsClick} >
-                <Icon.CarrotDown/>
+                <Icons.CarrotDown/>
               </button>
 
               {dropdown}

@@ -19,7 +19,7 @@ import styled from 'styled-components'
 
 import classnames from 'classnames';
 import { Table } from './../Table';
-import * as Icon from 'shared/components/Icon';
+import Icon, { CircleArrowLeft, CircleArrowRight } from 'shared/components/Icon';
 
 class PagedTable extends React.Component {
 
@@ -110,66 +110,41 @@ const PageInfo = props => {
     return null;
   }
 
-  const prevBtnClass = classnames('btn btn-white', {
-    'disabled': startFrom === 0
-  });
-
-  const nextBtnClass = classnames('btn btn-white', {
-    'disabled': endAt === totalRows
-  });
+  const isPrevDisabled = startFrom === 0;
+  const isNextDisabled = endAt === totalRows;
 
   return (
     <Pager>
       <h5>
         SHOWING <strong>{startFrom+1}</strong> to <strong>{endAt}</strong> of <strong>{totalRows}</strong>
       </h5>
-
-      <ul>
-        <li>
-          <button onClick={onPrev} title="Previous Page" className={prevBtnClass}>
-            <Icon.CircleArrowLeft fontSize="3" />
-          </button>
-        </li>
-
-        <li>
-          <button onClick={onNext} title="Next Page" className={nextBtnClass}>
-            <Icon.CircleArrowRight fontSize="3" />
-          </button>
-        </li>
-      </ul>
+      <ButtonList>
+        <button onClick={onPrev} title="Previous Page" disabled={isPrevDisabled}>
+          <CircleArrowLeft fontSize="3" />
+        </button>
+        <button onClick={onNext} title="Next Page" disabled={isNextDisabled}>
+          <CircleArrowRight fontSize="3" />
+        </button>
+      </ButtonList>
     </Pager>
   )
 }
 
 export default PagedTable;
 
+const ButtonList = styled.div`
+  margin-left: auto;
+`
+
 const Pager = styled.nav`
   display: flex;
-  margin: 0;
   height: 24px;
-  line-height: 24px;
-  padding: 0;
 
   h5 {
     font-size: 11px;
     font-weight: 300;
-    line-height: 24px;
     margin: 0;
     opacity: .87;
-    padding: 0;
-    width: 40%;
-  }
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 60%;
-    text-align: right;
-
-    li {
-      display: inline-block;
-    }
   }
 
   button {
@@ -186,13 +161,12 @@ const Pager = styled.nav`
 
     &:hover {
       background: ${props => props.theme.colors.bgQuaternary };
-
-      .icon {
+      ${Icon} {
         opacity: 1;
       }
     }
 
-    .icon {
+    ${Icon} {
       opacity: .56;
       transition: all .3s;
     }

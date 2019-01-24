@@ -9,7 +9,7 @@ import { TopNav } from 'shared/components';
 import MenuItem from 'shared/components/Menu/MenuItem';
 import MenuItemIcon from 'shared/components/Menu/MenuItemIcon';
 import Button from 'shared/components/Button';
-import * as Icon from 'shared/components/Icon';
+import * as Icons from 'shared/components/Icon';
 
 export class AppBar extends React.Component {
 
@@ -46,7 +46,7 @@ export class AppBar extends React.Component {
           onClose={this.onCloseMenu}
           user={username} >
           <MenuItem py={1} as={NavLink} to={cfg.routes.settingsAccount}>
-            <MenuItemIcon as={Icon.Profile} />
+            <MenuItemIcon as={Icons.Profile} />
             Account Settings
           </MenuItem>
           <MenuItem >

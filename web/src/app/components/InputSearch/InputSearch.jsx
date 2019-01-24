@@ -18,7 +18,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { debounce } from 'lodash';
 import styled from 'styled-components';
-import {Magnifier, Icon} from 'shared/components/Icon/Icon';
+import Icon, { Magnifier } from 'shared/components/Icon';
 
 class InputSearch extends React.Component {
 
