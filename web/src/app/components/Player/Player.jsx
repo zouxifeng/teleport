@@ -18,7 +18,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ProgressBar from './ProgressBar';
 import Xterm from './Xterm';
-import Alert from 'shared/components/Alerts';
+import { Danger } from 'shared/components/Alert';
 import { TtyPlayer } from 'app/lib/term/ttyPlayer';
 import { Indicator, Text, Typography, Box } from 'shared/components';
 export default class Player extends React.Component {
@@ -88,10 +88,10 @@ export default class Player extends React.Component {
     if(isError) {
       return (
         <StatusBox>
-          <Alert status="danger" m={10}>
+          <Danger m={10}>
             Connection Error
             <Text fontSize={1}> {errText || "Error"} </Text>
-          </Alert>
+          </Danger>
         </StatusBox>
       );
     }

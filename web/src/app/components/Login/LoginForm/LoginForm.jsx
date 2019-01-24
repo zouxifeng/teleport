@@ -15,8 +15,8 @@ limitations under the License.
 */
 
 import React from 'react';
-import { Card, Box, Flex, Typography, Input, Label, Button } from '../../../../shared/components';
-import Alert from '../../../../shared/components/Alerts';
+import { Card, Box, Flex, Typography, Input, Label, Button } from 'shared/components';
+import * as Alerts from 'shared/components/Alert';
 import { Auth2faTypeEnum } from '../../../services/enums';
 import SsoButtonList from './SsoButtons';
 import { Formik } from 'formik';
@@ -204,7 +204,7 @@ export default class LoginForm extends React.Component {
                   <Typography.h3 textAlign="center" color="light">
                     SIGN INTO TELEPORT
                   </Typography.h3>
-                  { isFailed && <Alert status="danger"> {message} </Alert>  }
+                  { isFailed && <Alerts.Danger> {message} </Alerts.Danger>  }
                   {this.renderInputFields(props)}
                   {this.renderTokenField(props)}
                   {this.renderLoginBtn(props.handleSubmit)}

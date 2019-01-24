@@ -28,7 +28,7 @@ import * as Icon from 'shared/components/Icon';
 import Xterm from './Xterm/Xterm';
 import FileTransferDialog from './FileTransfer';
 import Portal from 'shared/components/Modal/Portal';
-import Alert from 'shared/components/Alerts';
+import * as Alerts from 'shared/components/Alert';
 import { fonts } from 'shared/components/theme';
 export class Terminal extends React.Component {
 
@@ -154,10 +154,10 @@ export class Terminal extends React.Component {
 }
 
 const ErrorIndicator = ({ text }) => (
-  <Alert status="danger" m={10}>
+  <Alerts.Danger m={10}>
     Connection error
     <Text fontSize={1}> {text} </Text>
-  </Alert>
+  </Alerts.Danger>
 )
 
 const SidNotFoundError = ({ onNew, onReplay }) => (

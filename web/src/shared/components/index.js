@@ -1,6 +1,6 @@
 import Input from './Input';
 import Button from './Button';
-import Alert from './Alerts';
+import Alert from './Alert';
 import Card from './Card';
 import Text from './Text';
 import Label from './Label';

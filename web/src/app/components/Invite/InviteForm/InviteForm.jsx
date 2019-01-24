@@ -20,7 +20,7 @@ import { Auth2faTypeEnum } from 'app/services/enums';
 import { Typography, Text, Card, Input, Label, Button } from 'shared/components';
 import { Formik } from 'formik';
 import Invite2faData from './TwoFaInfo';
-import Alert from 'shared/components/Alerts';
+import * as Alerts from 'shared/components/Alert';
 import Flex from 'shared/components/Flex';
 import Box from 'shared/components/Box';
 
@@ -215,7 +215,7 @@ export const ErrorMessage = ({ message }) => {
   const $helpBox = message.indexOf('U2F') !== -1 ? <U2FError/> : null
   return (
     <>
-      <Alert>{message} </Alert>
+      <Alerts.Danger>{message} </Alerts.Danger>
       {$helpBox}
     </>
   )

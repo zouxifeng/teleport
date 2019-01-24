@@ -1,34 +1,31 @@
+import React from 'react';
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { space } from 'styled-system'
-import { colors } from '../theme';
+import { space, color } from 'styled-system'
+import defaultTheme from './../theme'
 
 const alertType = props => {
-  switch (props.status) {
+  const { theme, status } = props;
+  switch (status) {
     case 'danger':
       return {
-        background: colors.error,
-        color: colors.light
+        background: theme.colors.error,
       }
     case 'info':
       return {
-        background: colors.info,
-        color: colors.light
+        background: theme.colors.info,
       }
     case 'warning':
       return {
-        background: colors.warning,
-        color: colors.light
+        background: theme.colors.warning,
       }
     case 'success':
       return {
-        background: colors.success,
-        color: colors.light
+        background: theme.colors.success,
       }
     default:
       return {
-        background: colors.error,
-        color: colors.light
+        background: theme.colors.error,
       }
   }
 }
@@ -46,6 +43,7 @@ const Alert = styled.div`
   text-align: center;
   -webkit-font-smoothing: antialiased;
   word-break: break-all;
+  ${color}
   ${space}
   ${alertType}
 `;
@@ -68,9 +66,15 @@ Alert.propTypes = {
 };
 
 Alert.defaultProps = {
-  status: 'danger'
+  color: 'light',
+  status: 'danger',
+  theme: defaultTheme,
 };
 
 Alert.displayName = 'Alert';
 
 export default Alert;
+export const Danger = props => <Alert status="danger" {...props} />
+export const Info = props => <Alert status="info" {...props} />
+export const Warning = props => <Alert status="warning" {...props} />
+export const Success = props => <Alert status="Success" {...props} />
