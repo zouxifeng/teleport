@@ -74,94 +74,94 @@ export default class Player extends React.Component {
     this.tty.move(value);
   }
 
-  renderConnectionError() {
-    const {errText} = this.state;
-
+  render() {
     return (
-      <Alert status="danger" m={10}>
-        Connection Error
-        <Text fontSize={1}> {errText || "Error"} </Text>
-      </Alert>
-    );
-  }
-
-  renderNoSession() {
-    return (
-      <Box m={10} textAlign="center">
-        <Typography.h4>Recording for this session is not available.</Typography.h4>
-      </Box>
+      <Container>
+        {this.renderContent()}
+      </Container>
     )
   }
 
-  renderLoadingIndicator() {
-    return (
-      <Box textAlign="center" m={10}>
-        <Indicator />
-      </Box>
-    );
-  }
+  renderContent() {
+    const { isError, errText, isLoading, eventCount } = this.state;
 
-  renderProgressBar() {
-    const {isPlaying, time, min, duration, current, eventCount} = this.state;
-    let $progressBar = null;
-
-    if(eventCount > 0) {
-      $progressBar = (
-        <ProgressBar
-          isPlaying={isPlaying}
-          time={time}
-          min={min}
-          max={duration}
-          value={current}
-          onToggle={this.onTogglePlayStop}
-          onChange={this.onMove}/>
+    if(isError) {
+      return (
+        <StatusBox>
+          <Alert status="danger" m={10}>
+            Connection Error
+            <Text fontSize={1}> {errText || "Error"} </Text>
+          </Alert>
+        </StatusBox>
       );
     }
 
-    return $progressBar;
-  }
+    if(isLoading) {
+      return (
+        <StatusBox>
+          <Indicator />
+        </StatusBox>
+      )
+    }
 
-  renderPlayer() {
+    if(!isLoading && eventCount === 0 ) {
+      return (
+        <StatusBox>
+          <Typography.h4>
+            Recording for this session is not available.
+          </Typography.h4>
+        </StatusBox>
+      )
+    }
+
     return (
-      <React.Fragment>
+      <PlayerBox>
         <XtermBox px={2}>
           <Xterm tty={this.tty} />
         </XtermBox>
         {this.renderProgressBar()}
-      </React.Fragment>
+      </PlayerBox>
     );
   }
 
-  render() {
-    const {isError, isLoading, eventCount} = this.state;
-    let $content = null;
+  renderProgressBar() {
+    const {
+      isPlaying,
+      time,
+      min,
+      duration,
+      current,
+      eventCount
+    } = this.state;
 
-    // error message
-    if(isError) {
-      $content = this.renderConnectionError();
-    }
-    // loading
-    else if(isLoading) {
-      $content = this.renderLoadingIndicator();
-    }
-    // no session available
-    else if(!isLoading && eventCount === 0 ) {
-      $content = this.renderNoSession();
-    }
-    // render session player
-    else {
-      $content = this.renderPlayer();
+    if(eventCount <= 0) {
+      return null;
     }
 
     return (
-      <StyledPlayer>
-        {$content}
-      </StyledPlayer>
+      <ProgressBar
+        isPlaying={isPlaying}
+        time={time}
+        min={min}
+        max={duration}
+        value={current}
+        onToggle={this.onTogglePlayStop}
+        onChange={this.onMove}/>
     );
   }
 }
 
-const StyledPlayer = styled.div`
+const StatusBox = props => (
+  <Box width="100%" textAlign="center" p={3} {...props}/>
+)
+
+const Container = styled.div`
+  display: flex;
+  height: 100%;
+  overflow: auto;
+  width: 100%;
+`
+const PlayerBox = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;

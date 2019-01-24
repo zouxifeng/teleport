@@ -49,7 +49,7 @@ export class AppBar extends React.Component {
             <MenuItemIcon as={Icon.Profile} />
             Account Settings
           </MenuItem>
-          <MenuItem>
+          <MenuItem >
             <Button mt={5} mb={2} block onClick={this.onLogout}>
               Sign Out
             </Button>

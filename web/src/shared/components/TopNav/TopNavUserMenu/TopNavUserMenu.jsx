@@ -31,8 +31,8 @@ class TopNavUserMenu extends React.Component {
   render() {
     const {
       user,
-      onClose,
       onShow,
+      onClose,
       open,
       avatar,
       anchorOrigin,
@@ -43,11 +43,13 @@ class TopNavUserMenu extends React.Component {
 
     const anchorEl = open ? this.btnRef : null;
     return (
-      <TopNavItem style={{ marginLeft: "auto" }}>
-        <AvatarButton ref={this.setRef} onClick={onShow}>
-          <em>{user}</em>
-          <img src={avatar} />
-        </AvatarButton>
+      <React.Fragment>
+        <TopNavItem style={{ marginLeft: "auto" }} onClick={onShow}>
+          <AvatarButton ref={this.setRef}>
+            <em>{user}</em>
+            <img src={avatar} />
+          </AvatarButton>
+        </TopNavItem>
         <Menu
           menuListCss={menuListCss}
           anchorOrigin={anchorOrigin}
@@ -58,7 +60,7 @@ class TopNavUserMenu extends React.Component {
         >
           { children }
         </Menu>
-      </TopNavItem>
+      </React.Fragment>
     );
   }
 }

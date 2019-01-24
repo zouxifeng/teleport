@@ -65,7 +65,11 @@ class App extends Component {
     }
 
     if (isProcessing) {
-      return <Indicator />
+      return (
+        <StyledIndicator>
+          <Indicator />
+        </StyledIndicator>
+      )
     }
 
     if (!isSuccess) {
@@ -99,4 +103,10 @@ const StyledApp = styled.div`
   width: 100%;
   top: 0;
   bottom: 0;
+`
+
+const StyledIndicator = styled(StyledApp)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `

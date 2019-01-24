@@ -23,7 +23,7 @@ THE SOFTWARE.
 
 */
 
-/*global define*/
+/*global define */
 
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
@@ -283,7 +283,7 @@ THE SOFTWARE.
           return defaultValue;
         default:
           if (value.length !== count || defaultValue.length !== count) {
-            console.warn(this.constructor.displayName + ": Number of values does not match number of children.");
+            window.console.warn(this.constructor.displayName + ": Number of values does not match number of children.");
           }
           return linspace(this.props.min, this.props.max, count);
       }

@@ -14,14 +14,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import reactor from 'app/reactor';
+import filterGetters from './getters';
 import {fetchSiteEvents} from './../sessions/actions';
 import Logger from 'app/lib/logger';
 const logger = Logger.create('Modules/Sessions');
 
-export function fetchSiteEventsWithinTimeRange(clusterId, start, end){
+export function fetchSiteEventsWithinTimeRange(clusterId){
+  let { start, end } = reactor.evaluate(filterGetters.filter);
   return fetchSiteEvents(clusterId, start, end)
     .catch(err => {
       logger.error('fetching filtered set of sessions', err.message);
     });
 }
-
