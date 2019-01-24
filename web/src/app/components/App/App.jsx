@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch } from './../Router'
 import styled from 'styled-components';
 import { connect } from './../nuclear';
 import { getters } from 'app/flux/app/appStore';
