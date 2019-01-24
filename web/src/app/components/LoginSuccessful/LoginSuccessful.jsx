@@ -18,12 +18,12 @@ import React from 'react';
 import Typography from 'shared/components/Typography';
 import Logo from 'shared/components/Logo';
 import logoSvg from 'shared/assets/images/teleport-medallion.svg';
-import { Card, Button } from 'shared/components';
+import { Card } from 'shared/components';
 import * as Icons from 'shared/components/Icon';
 import { withDocTitle } from './../DocumentTitle';
 
 export const LoginSuccessful = () => (
-  <>
+  <React.Fragment>
     <Logo src={logoSvg}/>
     <Card width="540px" p={5} my={4} mx="auto" textAlign="center">
       <Icons.CircleCheck mb={3} fontSize={64} color="success"/>
@@ -34,9 +34,8 @@ export const LoginSuccessful = () => (
         You have successfully signed into your account.
         You can close this window and continue using the product.
       </Typography.p>
-      <Button secondary>Close Window</Button>
     </Card>
-  </>
+  </React.Fragment>
 )
 
 export default withDocTitle("Success", LoginSuccessful);

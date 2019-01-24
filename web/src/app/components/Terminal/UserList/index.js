@@ -14,31 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import UserList from './UserList';
 
-
-import React from 'react';
-import { connect } from 'app/components/nuclear';
-import sessionGetters from 'app/flux/sessions/getters';
-
-export const UserList = props => {
-  let parties = props.parties || [];
-  let userIcons = parties.map((item, index)=>(
-    <div key={index}>
-      {item.user}
-    </div>
-  ));
-
-  return (
-    <div>
-      {userIcons}
-    </div>
-  )
-}
-
-function mapStateToProps(props) {
-  return {
-    parties: sessionGetters.activePartiesById(props.sid)
-  }
-}
-
-export default connect(mapStateToProps)(UserList)
+export default UserList;

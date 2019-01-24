@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { flex, height, alignSelf, justifySelf, space, width, color, textAlign,  } from 'styled-system'
 import PropTypes from 'prop-types'
-import theme from './../theme'
+import defaultTheme from './../theme'
 
 
 const Box = styled.div`
@@ -10,9 +10,8 @@ const Box = styled.div`
 `
 
 Box.displayName = 'Box'
-
 Box.defaultProps = {
-  theme: theme
+  theme: defaultTheme
 }
 
 const numberStringOrArray = PropTypes.oneOfType([
