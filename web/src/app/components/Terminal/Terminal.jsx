@@ -30,7 +30,6 @@ import FileTransferDialog from './FileTransfer';
 import Portal from 'shared/components/Modal/Portal';
 import Alert from 'shared/components/Alerts';
 import { fonts } from 'shared/components/theme';
-
 export class Terminal extends React.Component {
 
   constructor(props){

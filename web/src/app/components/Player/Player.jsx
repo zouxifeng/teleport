@@ -123,12 +123,12 @@ export default class Player extends React.Component {
 
   renderPlayer() {
     return (
-      <XXX>
-        <StyledXterm>
+      <React.Fragment>
+        <XtermBox px={2}>
           <Xterm tty={this.tty} />
-        </StyledXterm>
+        </XtermBox>
         {this.renderProgressBar()}
-      </XXX>
+      </React.Fragment>
     );
   }
 
@@ -154,26 +154,23 @@ export default class Player extends React.Component {
     }
 
     return (
-      <StyledPlayer>{$content}</StyledPlayer>
+      <StyledPlayer>
+        {$content}
+      </StyledPlayer>
     );
   }
 }
 
 const StyledPlayer = styled.div`
+  display: flex;
+  flex-direction: column;
   height: 100%;
   width: 100%;
+  justify-content: space-between;
 `;
 
-const XXX = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    justify-content: space-between;
-`;
-
-const StyledXterm = styled.div`
-  overflow: auto;
+const XtermBox = styled(Box)`
   height: 100%;
+  overflow: auto;
   width: 100%;
 `

@@ -115,7 +115,6 @@ const StyledProgessBar = styled.div`
     height: 16px;
     left: -8px;
     top: 4px;
-    z-index: 1;
   }
 
   .grv-slider .bar-0 {

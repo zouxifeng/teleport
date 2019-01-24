@@ -123,6 +123,7 @@ const StyledError = styled.div`
 const Progress = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 `;
 
@@ -156,6 +157,5 @@ const StyledButton = styled(TermCloseButton)`
   color: ${props => props.theme.colors.light};
   font-size: 12px;
   height: 12px;
-  margin: 6px 8px;
   width: 12px;
 `

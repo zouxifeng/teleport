@@ -19,8 +19,9 @@ import styled from 'styled-components';
 import Portal from 'shared/components/Modal/Portal';
 import { close } from 'app/flux/player/actions';
 import Player from './Player';
+import { CloseButton as TermCloseButton } from './../Terminal/Elements';
 import DocumentTitle from './../DocumentTitle';
-import { Flex, Box } from 'shared/components';
+import { Box } from 'shared/components';
 import { fonts } from 'shared/components/theme';
 import cfg from 'app/config';
 
@@ -43,39 +44,45 @@ class PlayerDialog extends React.Component {
     return (
       <Portal>
         <DocumentTitle title={title}>
-          <StyledTerminal>
-            <Flex flexDirection="column" height="100%" width="100%">
-              <Box px={2} height="60px">
-                FDSF
-              </Box>
-              <Player url={this.url}/>
-            </Flex>
-          </StyledTerminal>
+          <StyledDialog>
+            <StyledActionBar px={2}>
+              <TermCloseButton onClick={this.onClose} />
+            </StyledActionBar>
+            <Player url={this.url}/>
+          </StyledDialog>
         </DocumentTitle>
       </Portal>
     );
   }
 }
 
-export const StyledTerminal = styled.div`
+const StyledActionBar = styled(Box)`
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  height: 32px;
+`
+
+const StyledDialog = styled.div`
   background-color:${props => props.theme.colors.bgTerminal};
   bottom: 0;
+  display: flex;
+  flex-direction: column;
   left: 0;
   position: absolute;
   right: 0;
   top: 0;
 
   .grv-terminal {
-    height: 100%;
-    width: 100%;
     font-size: 14px;
+    height: 100%;
     line-height: normal;
-    overflow: auto;
+    width: 100%;
   }
 
   .grv-terminal .terminal {
-    font-family: ${fonts.mono};
     border: none;
+    font-family: ${fonts.mono};
     font-size: inherit;
     line-height: normal;
     position: relative;
