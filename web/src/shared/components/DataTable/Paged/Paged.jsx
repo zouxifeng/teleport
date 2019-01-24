@@ -16,8 +16,6 @@ limitations under the License.
 
 import React from 'react';
 import styled from 'styled-components'
-
-import classnames from 'classnames';
 import { Table } from './../Table';
 import Icon, { CircleArrowLeft, CircleArrowRight } from 'shared/components/Icon';
 

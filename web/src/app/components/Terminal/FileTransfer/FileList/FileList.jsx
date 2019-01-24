@@ -41,7 +41,7 @@ export default function FileList ({ files, onUpdate, onRemove }) {
   return (
     <List mt={3}>
       <ListHeaders>
-        <ListTitle width="360px">File Path</ListTitle>
+        <ListTitle width="360px">File</ListTitle>
         <ListTitle width="80px" textAlign="right">Status</ListTitle>
       </ListHeaders>
       <ListItems>
@@ -50,7 +50,6 @@ export default function FileList ({ files, onUpdate, onRemove }) {
     </List>
   )
 }
-
 
 const List = styled(Box)`
 `

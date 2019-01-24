@@ -108,8 +108,8 @@ const StyledFileTransfer = styled.div`
   padding: 16px;
   // replace it with the Portal component
   position: absolute;
-  right: 8px;
-  top: 8px;
+  right: 0;
+  top: 0;
   width: 496px;
   z-index: 2;
 `
