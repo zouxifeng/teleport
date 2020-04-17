@@ -1,0 +1,11 @@
+teleport:
+  data_dir: "REPLACE_ME"
+
+auth_service:
+  enabled: yes
+
+proxy_service:
+  enabled: no
+
+ssh_service:
+  enabled: no

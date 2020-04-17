@@ -1,0 +1,18 @@
+teleport:
+  data_dir: "REPLACE_ME"
+  auth_servers:
+    - "localhost"
+
+proxy_service:
+  enabled: yes
+  kubernetes:
+    enabled: yes
+    kubeconfig_file: "REPLACE_ME"
+    public_addr: localhost:3026
+    listen_addr: 0.0.0.0:3026
+
+auth_service:
+  enabled: no
+
+ssh_service:
+  enabled: no
