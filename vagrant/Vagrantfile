@@ -14,8 +14,8 @@ DOCKER_VER ||= "1.10.3"
 # for each node make sure to have conf/<name> directory with Teleport configuration
 NODES ||= {
   "a-auth" => ["10.0.10.10"],
-  "b-auth" => ["10.0.10.20"], 
-  "b-node" => ["10.0.10.21"], 
+  "b-auth" => ["10.0.10.20"],
+  "b-node" => ["10.0.10.21"],
 }
 
 
@@ -29,21 +29,22 @@ Vagrant.configure(2) do |config|
   install_docker(config.vm, DOCKER_VER)
   #install_teleport(config.vm)
   #configure_teleport(config.vm)
-  
+
   NODES.each do |role, array|
       ip = array[0]
       config.vm.define role do |config|
           config.vm.hostname = role
           config.vm.network "private_network", ip: ip
       end
-  end 
+  end
 
   # libvirt:
   config.vm.provider "libvirt" do |v|
-      config.vm.box = "http://s3.gravitational.io/vms/libvirt-debian.box"
+      config.vbguest.auto_update = true
+      config.vm.box = "generic/ubuntu1804"
       config.vm.box_check_update = false
-      config.vm.synced_folder "../", "/home/vagrant/teleport", type: "9p", disabled: false, accessmode: "mapped"
-      config.vm.synced_folder "opt", "/opt", type: "9p", disabled: false, accessmode: "mapped"
+      config.vm.synced_folder "../", "/home/vagrant/teleport"
+      config.vm.synced_folder "opt", "/opt"
       v.driver = "kvm"
       v.cpus = 1
       v.memory = 512
@@ -96,7 +97,7 @@ def install_docker(vm, docker_version)
     mv /tmp/docker* /etc/systemd/system/
     if [ ! -s /usr/bin/docker ]; then
         echo "Downloading Docker #{docker_version}..."
-        wget -qO /usr/bin/docker https://get.docker.com/builds/Linux/x86_64/docker-#{docker_version} 
+        wget -qO /usr/bin/docker https://get.docker.com/builds/Linux/x86_64/docker-#{docker_version}
         chmod +x /usr/bin/docker
     fi
     systemctl daemon-reload
@@ -128,7 +129,7 @@ def basic_config(vm)
   hosts = NODES.map { |hostname, array| "#{array[0]} #{hostname}" }.join("\n")
   bashrc="/home/vagrant/.bashrc"
   vm.provision "shell", inline: <<-SHELL
-    if ! grep -q "git-core" #{bashrc} ; then 
+    if ! grep -q "git-core" #{bashrc} ; then
         echo "customizing ~/bashrc"
         echo "\n\n# Customizations from Vagrantfile:" >> #{bashrc}
         echo "export PS1='\\[\\033[31;1m\\]\\h\\[\\033[0;32m\\] \\w\\[\\033[00m\\]: '" >> #{bashrc}
@@ -137,7 +138,7 @@ def basic_config(vm)
         echo "alias ll='ls -lh'" >> #{bashrc}
         echo "alias tsh='tsh --insecure'" >> #{bashrc}
     fi
-    if ! grep -q "Teleport" /etc/hosts ; then 
+    if ! grep -q "Teleport" /etc/hosts ; then
         echo "# Teleport entries added by Vagrant:" >> /etc/hosts
         echo -e "#{hosts}" >> /etc/hosts
     fi
