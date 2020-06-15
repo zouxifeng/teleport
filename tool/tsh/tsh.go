@@ -484,15 +484,7 @@ func onLogin(cf *CLIConf) {
 	}
 
 	if makeIdentityFile {
-		if err := setupNoninteractiveClient(tc, key); err != nil {
-			utils.FatalError(err)
-		}
-		authorities, err := tc.GetTrustedCA(cf.Context, key.ClusterName)
-		if err != nil {
-			utils.FatalError(err)
-		}
-
-		filesWritten, err := identityfile.Write(cf.IdentityFileOut, key, cf.IdentityFormat, authorities, tc.KubeClusterAddr())
+		filesWritten, err := identityfile.Write(cf.IdentityFileOut, key, cf.IdentityFormat, tc.KubeClusterAddr())
 		if err != nil {
 			utils.FatalError(err)
 		}
@@ -523,41 +515,6 @@ func onLogin(cf *CLIConf) {
 	} else {
 		onStatus(cf)
 	}
-}
-
-// setupNoninteractiveClient sets up existing client to use
-// non-interactive authentication methods
-func setupNoninteractiveClient(tc *client.TeleportClient, key *client.Key) error {
-	certUsername, err := key.CertUsername()
-	if err != nil {
-		return trace.Wrap(err)
-	}
-	tc.Username = certUsername
-
-	// Extract and set the HostLogin to be the first principal. It doesn't
-	// matter what the value is, but some valid principal has to be set
-	// otherwise the certificate won't be validated.
-	certPrincipals, err := key.CertPrincipals()
-	if err != nil {
-		return trace.Wrap(err)
-	}
-	if len(certPrincipals) == 0 {
-		return trace.BadParameter("no principals found")
-	}
-	tc.HostLogin = certPrincipals[0]
-
-	identityAuth, err := authFromIdentity(key)
-	if err != nil {
-		return trace.Wrap(err)
-	}
-	tc.TLS, err = key.ClientTLSConfig()
-	if err != nil {
-		return trace.Wrap(err)
-	}
-	tc.AuthMethods = []ssh.AuthMethod{identityAuth}
-	tc.Interactive = false
-	tc.SkipLocalAuth = true
-	return nil
 }
 
 // onLogout deletes a "session certificate" from ~/.tsh for a given proxy
